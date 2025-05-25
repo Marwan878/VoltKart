@@ -1,0 +1,69 @@
+:root {
+  --light-blue: rgb(80, 142, 255);
+  --section-margin: 3rem;
+}
+
+p,
+a,
+button,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.slick-prev {
+  margin-inline-start: 2rem;
+}
+
+.slick-prev::before {
+  content: "";
+}
+
+.slick-next {
+  margin-inline-end: 2rem;
+}
+
+.slick-next::before {
+  content: "";
+}
+
+.notFound {
+  padding-top: 15%;
+  text-align: center;
+}
+
+.notFound h1 {
+  font-size: 130px;
+}
+.notFound p {
+  font-size: 50px;
+}
