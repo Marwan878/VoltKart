@@ -11,6 +11,7 @@ export default function CategoriesGrid() {
     <Container
       fluid
       className={`d-flex flex-column flex-xl-row gap-3 ${styles.categories}`}
+      id="categories"
     >
       {Array.from({ length: gridCount }).map((_, i) => (
         <div className={styles.bentoGrid} key={i}>
@@ -18,7 +19,7 @@ export default function CategoriesGrid() {
             (cateogry) => (
               <a
                 key={cateogry.displayName}
-                href={cateogry.link}
+                href={`/products/${cateogry.id}`}
                 style={
                   { "--bg-img": `url(${cateogry.imageUrl})` } as CSSProperties
                 }

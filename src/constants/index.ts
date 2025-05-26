@@ -106,49 +106,49 @@ const CATEGORIES = [
     displayName: "Mobiles & Accessories",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-2-2.jpg",
-    link: "#",
+    id: "mobiles-and-accessories",
   },
   {
     displayName: "Computers & Multimedia",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-3-thegem-product-justified-square-xl.jpg",
-    link: "#",
+    id: "computers-and-multimedia",
   },
   {
     displayName: "Tablets & eBooks",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-4-2-thegem-product-justified-square-xl.jpg",
-    link: "#",
+    id: "tablets-and-ebooks",
   },
   {
     displayName: "Gaming & Consoles",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-34-thegem-product-justified-square-double-horizontal-xl.jpg",
-    link: "#",
+    id: "gaming-and-consoles",
   },
   {
     displayName: "TV-Sets & Monitoring",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-5-2.jpg",
-    link: "#",
+    id: "tvsets-and-monitoring",
   },
   {
     displayName: "Audio & Hi-Fi",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-6-thegem-product-justified-square-xl.jpg",
-    link: "#",
+    id: "audio-and-hifi",
   },
   {
     displayName: "Photo & Video",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-7-thegem-product-justified-square-xl.jpg",
-    link: "#",
+    id: "photo-and-video",
   },
   {
     displayName: "Smart Home Solutions",
     imageUrl:
       "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-8-2-thegem-product-justified-square-double-horizontal-xl.jpg",
-    link: "#",
+    id: "smart-home-solutions",
   },
 ] as const;
 
@@ -212,87 +212,50 @@ const BRANDS_IMAGES_URLS = [
   "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-25.svg",
 ] as const;
 
-const ARTICLES = [
+const NAVIGATION_LINKS = [
   {
-    title: "Lorem Ipsum Dolor Sit Amet Quot Memo Sit Amet Ipsum",
-    imageUrl:
-      "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-15.jpg",
-    author: {
-      name: "Scott Jackson",
-      imageUrl:
-        "	https://secure.gravatar.com/avatar/adc20d3babf428f1ac85e4e90f8be0fd?s=100&d=mm&r=g",
-    },
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    category: "Electronics",
-    date: "9 April 2025",
+    text: "Home",
+    href: "/",
+    visibleFor: "any",
   },
   {
-    title: "Lorem Ipsum Dolor Sit Amet Quot Memo Sit Amet Ipsum",
-    imageUrl:
-      "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-16.jpg",
-    author: {
-      name: "Scott Jackson",
-      imageUrl:
-        "	https://secure.gravatar.com/avatar/adc20d3babf428f1ac85e4e90f8be0fd?s=100&d=mm&r=g",
-    },
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    category: "Electronics",
-    date: "9 April 2025",
+    text: "Categories",
+    href: "/#categories",
+    visibleFor: "any",
   },
   {
-    title: "Lorem Ipsum Dolor Sit Amet Quot Memo Sit Amet Ipsum",
-    imageUrl:
-      "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/home-17.jpg",
-    author: {
-      name: "Scott Jackson",
-      imageUrl:
-        "	https://secure.gravatar.com/avatar/adc20d3babf428f1ac85e4e90f8be0fd?s=100&d=mm&r=g",
-    },
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    category: "Electronics",
-    date: "9 April 2025",
+    text: "My Account",
+    href: "/account",
+    visibleFor: "logged_in",
+  },
+  {
+    text: "Login",
+    href: "/login",
+    visibleFor: "logged_out",
+  },
+  {
+    text: "Profile",
+    href: "/profile",
+    visibleFor: "logged_in",
+  },
+  {
+    text: "Orders",
+    href: "/profile/orders",
+    visibleFor: "logged_in",
+  },
+  {
+    text: "Logout",
+    href: "/logout",
+    visibleFor: "logged_in",
   },
 ] as const;
 
-const FOOTER_DATA = {
-  LINKS: {
-    "Our Store": [
-      { text: "About Us", href: "#" },
-      { text: "Delivery", href: "#" },
-      { text: "Support & FAQ", href: "#" },
-      { text: "Professional growth", href: "#" },
-    ],
-    Services: [
-      { text: "Disclaimer", href: "#" },
-      { text: "Privacy Policy", href: "#" },
-      { text: "Risk Disclosure", href: "#" },
-      { text: "Terms & Conditions", href: "#" },
-    ],
-    "Useful Links": [
-      { text: "Gift Vouchers", href: "#" },
-      { text: "Platform Vision", href: "#" },
-      { text: "Team Members", href: "#" },
-      { text: "Referral Program", href: "#" },
-    ],
-  },
-  PAYMENT_METHODS_IMAGES_URLS: [
-    "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/visa.png",
-    "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/mastercard.png",
-    "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/paypal.png",
-    "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/bank.png",
-  ],
-} as const;
-
 export {
-  ARTICLES,
   BRANDS_IMAGES_URLS,
   CATEGORIES,
   FEATURES1,
   FEATURES2,
-  FOOTER_DATA,
+  NAVIGATION_LINKS,
   HERO_IMAGES,
   MOBILE_BREAKPOINT,
   SIDEBAR_LINKS,

@@ -1,0 +1,37 @@
+/* Middle bar styles */
+.rightContainer {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+
+.rightContainer > a {
+  transition: ease color 300ms;
+}
+
+.rightContainer > a:hover {
+  color: var(--light-blue);
+}
+
+/* Bottom bar styles */
+
+.pageLinksContainer a {
+  position: relative;
+  font-weight: bold;
+}
+
+.pageLinksContainer a::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  height: 2px;
+  transition: all ease-in 200ms;
+  background-color: black;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+}
+
+.pageLinksContainer > li:hover:not(:first-child) a::before {
+  width: 100%;
+}

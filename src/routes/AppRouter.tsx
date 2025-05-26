@@ -76,24 +76,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/categories/products/:prefix",
+        path: "/products/:prefix",
         element: (
           <PageSuspenseFallback>
             <Products />
           </PageSuspenseFallback>
         ),
-        loader: ({ params }) => {
-          if (
-            typeof params.prefix !== "string" ||
-            !/^[a-z]+$/i.test(params.prefix)
-          ) {
-            throw new Response("Bad Request", {
-              statusText: "Category not found",
-              status: 400,
-            });
-          }
-          return true;
-        },
       },
       {
         path: "about-us",
