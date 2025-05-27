@@ -13,6 +13,7 @@ const PRODUCTS_PER_CAROUSEL_ITEM = 8;
 // type TLandingPageProductsCategory = keyof typeof LANDING_PAGE_PRODUCTS;
 
 export default function ProductsCarousel() {
+  return <></>;
   // const [key, setKey] = useState<TLandingPageProductsCategory>("On Sale");
   // const [index, setIndex] = useState(0);
   // const canDisplayPrevious = index > 0;

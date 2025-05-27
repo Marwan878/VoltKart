@@ -18,7 +18,7 @@ const Home = () => {
       <Features1 />
       <ProductsCarousel />
       <HighlightedProducts />
-      {/* <WeeklyDeals /> */}
+      <WeeklyDeals />
       <Features2 />
       <BrandsAndPartners />
       <ScrollToTop />

@@ -76,7 +76,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/products/:prefix",
+        path: "/products/:productId",
         element: (
           <PageSuspenseFallback>
             <Products />

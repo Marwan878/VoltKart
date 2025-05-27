@@ -250,6 +250,29 @@ const NAVIGATION_LINKS = [
   },
 ] as const;
 
+const FILTERS = [
+  {
+    displayName: "Default sorting",
+    value: "default",
+  },
+  {
+    displayName: "Price: Low to High",
+    value: "price-low",
+  },
+  {
+    displayName: "Price: High to Low",
+    value: "price-high",
+  },
+  {
+    displayName: "Name: A to Z",
+    value: "name-low",
+  },
+  {
+    displayName: "Name: Z to A",
+    value: "name-high",
+  },
+];
+
 export {
   BRANDS_IMAGES_URLS,
   CATEGORIES,
@@ -259,4 +282,5 @@ export {
   HERO_IMAGES,
   MOBILE_BREAKPOINT,
   SIDEBAR_LINKS,
+  FILTERS,
 };

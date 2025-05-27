@@ -1,12 +1,6 @@
 export type TProduct = {
   id: number;
   name: string;
-  price: {
-    original: number;
-    discounted: number;
-    currency: string;
-    discountPercent: number;
-  };
   categories: string[];
   imageUrls: {
     main: string;
@@ -14,10 +8,26 @@ export type TProduct = {
   };
   url: string;
   releaseDate: number;
-  cat_prefix?: string;
   img: string;
-  quantity?: number;
   max: number;
+  optionCombinations: [
+    {
+      color: string;
+      storage: number;
+      memory: number;
+      price: {
+        original: number;
+        discounted: number;
+        currency: string;
+        discountPercent: number;
+      };
+      stock: number;
+    }
+  ];
+  rating: number;
+  description: string;
+  brand?: string;
+  quantity?: number;
   isLiked?: boolean;
   isAuthenticated?: boolean;
 };

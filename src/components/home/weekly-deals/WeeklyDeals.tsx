@@ -8,6 +8,7 @@ import { Container, Stack } from "react-bootstrap";
 import styles from "../style.module.css";
 
 export default function WeeklyDeals() {
+  return <></>;
   // const sliderSettings: Settings = {
   //   dots: false,
   //   infinite: true,
