@@ -32,7 +32,8 @@
       "@utils": ["src/utils/index"],
       "@services/*": ["src/services/*"],
       "@validations/*": ["src/validations/*"],
-      "@constants": ["src/constants/index"]
+      "@constants": ["src/constants/index"],
+      "@lib/*": ["src/lib/*"]
     },
     /* Linting */
     "strict": true,

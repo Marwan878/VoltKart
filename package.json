@@ -11,9 +11,10 @@
     "start": "json-server-auth db.json --watch --port 5005"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.8.0",
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.0.1",
-    "axios": "^1.6.5",
+    "@supabase/supabase-js": "^2.49.8",
     "bootstrap": "^5.3.2",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.511.0",

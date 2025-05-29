@@ -2,38 +2,37 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import {
-  actGetProductsByCatPrefix,
+  actGetProductsByCategory,
   cleanUpProductsRecords,
 } from "@store/products/productsSlice";
 
 const useProducts = () => {
-  const params = useParams();
-  const productPrefix = params.prefix;
+  const { category } = useParams() as { category: string };
+
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.products);
+
   const cartItems = useAppSelector((state) => state.cart.items);
   const wishListItemsId = useAppSelector((state) => state.wishlist.itemsId);
   const userAccessToken = useAppSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
-    const promise = dispatch(
-      actGetProductsByCatPrefix(params.prefix as string)
-    );
+    const promise = dispatch(actGetProductsByCategory(category));
 
     return () => {
       dispatch(cleanUpProductsRecords());
       promise.abort();
     };
-  }, [dispatch, params]);
+  }, [dispatch, category]);
 
-  const productsFullInfo = records.map((el) => ({
-    ...el,
-    quantity: cartItems[el.id],
-    isLiked: wishListItemsId.includes(el.id),
-    isAuthenticated: userAccessToken ? true : false,
+  const productsFullInfo = records.map((record) => ({
+    ...record,
+    quantity: cartItems[record.id],
+    isLiked: wishListItemsId.includes(record.id),
+    isAuthenticated: !!userAccessToken,
   }));
 
-  return { loading, error, productsFullInfo, productPrefix };
+  return { loading, error, productsFullInfo, category };
 };
 
 export default useProducts;

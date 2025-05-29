@@ -1,6 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { axiosErrorHandler } from "@utils";
 import { TProduct } from "@types";
 import { RootState } from "@store/index";
 
@@ -13,7 +11,7 @@ const actGetWishlist = createAsyncThunk(
     const { rejectWithValue, signal, getState } = thunkAPI;
     const { auth } = getState() as RootState;
     try {
-      const userWishlist = await axios.get<{ productId: number }[]>(
+      const userWishlist = await axios.get<{ productId: string }[]>(
         `/wishlist?userId=${auth.user?.id}`,
         { signal }
       );

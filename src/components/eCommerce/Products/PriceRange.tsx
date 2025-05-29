@@ -2,6 +2,7 @@ import Slider from "rc-slider";
 import { SetURLSearchParams } from "react-router-dom";
 
 import "rc-slider/assets/index.css";
+import Filter from "./FilterContainer";
 
 export default function PriceRange({
   range,
@@ -13,9 +14,7 @@ export default function PriceRange({
   setSearchParams: SetURLSearchParams;
 }) {
   return (
-    <div className="my-4" style={{ maxWidth: 300 }}>
-      <h5 className="mb-3">Filter By Price</h5>
-
+    <Filter heading="Filter by Price">
       <Slider
         range
         allowCross={false}
@@ -39,6 +38,6 @@ export default function PriceRange({
       <span className="text-muted mt-2 d-inline-block">
         Price: ${range[0]} — ${range[1]}
       </span>
-    </div>
+    </Filter>
   );
 }

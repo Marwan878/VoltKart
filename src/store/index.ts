@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import categories from "./categories/categoriesSlice";
 import products from "./products/productsSlice";
 import cart from "./cart/cartSlice";
 import wishlist from "./wishlist/wishlistSlice";
@@ -38,7 +37,6 @@ const cartPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, auth),
-  categories,
   products,
   orders,
   toasts,

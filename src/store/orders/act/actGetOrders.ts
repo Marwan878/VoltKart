@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import axiosErrorHandler from "@utils/axiosErrorHandler";
 import { RootState } from "@store/index";
 import { TOrderItem } from "@types";
-
-type TResponse = TOrderItem[];
 
 const actGetOrders = createAsyncThunk(
   "orders/actGetOrders",
@@ -13,7 +9,7 @@ const actGetOrders = createAsyncThunk(
     const { auth } = getState() as RootState;
 
     try {
-      const res = await axios.get<TResponse>(
+      const res = await axios.get<TOrderItem[]>(
         `/orders?userId=${auth.user?.id}`,
         { signal }
       );

@@ -10,7 +10,6 @@ import { LottieHandler, PageSuspenseFallback } from "@components/feedback";
 // pages
 const Home = lazy(() => import("@pages/Home"));
 const Wishlist = lazy(() => import("@pages/Wishlist"));
-const Categories = lazy(() => import("@pages/Categories"));
 const Cart = lazy(() => import("@pages/Cart"));
 const Products = lazy(() => import("@pages/Products"));
 const AboutUs = lazy(() => import("@pages/AboutUs"));
@@ -65,14 +64,6 @@ const router = createBrowserRouter([
               <Wishlist />
             </PageSuspenseFallback>
           </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/categories",
-        element: (
-          <PageSuspenseFallback>
-            <Categories />
-          </PageSuspenseFallback>
         ),
       },
       {

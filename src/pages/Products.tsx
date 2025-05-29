@@ -1,141 +1,74 @@
+import { MainContent, SidebarFilters } from "@components/eCommerce";
+import { Loading } from "@components/feedback";
+import { CATEGORIES } from "@constants";
+import { faker } from "@faker-js/faker";
 import useProducts from "@hooks/useProducts";
-import { useMemo } from "react";
+import { supabase } from "@lib/supabase";
+import { TProduct } from "@types";
 import { Container, Row } from "react-bootstrap";
-import { useParams, useSearchParams } from "react-router-dom";
-import { SidebarFilters, MainContent } from "@components/eCommerce";
 
 export default function Products() {
   const { loading, error, productsFullInfo: products } = useProducts();
 
-  const { productId: selectedCategory } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const selectedColor = searchParams.get("selectedColor") ?? "";
-  const sortBy = searchParams.get("sortBy") ?? "default";
-  const searchTerm = searchParams.get("searchTerm") ?? "";
-  const priceRange = (searchParams
-    .get("priceRange")
-    ?.split("-")
-    .map(Number) ?? [0, 500]) as [number, number];
-
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
-      const matchesSearch =
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-      const matchesCategory =
-        !selectedCategory || product.categories.includes(selectedCategory);
-
-      const matchesColor =
-        !selectedColor ||
-        product.optionCombinations.some(
-          (option) => option.color === selectedColor
-        );
-
-      const matchesPrice =
-        product.optionCombinations.some(
-          (option) => option.price.discounted >= priceRange[0]
-        ) &&
-        product.optionCombinations.some(
-          (option) => option.price.discounted <= priceRange[1]
-        );
-
-      return matchesSearch && matchesCategory && matchesColor && matchesPrice;
-    });
-  }, [products, searchTerm, selectedCategory, selectedColor, priceRange]);
-
-  const sortedProducts = useMemo(() => {
-    const sorted = [...filteredProducts];
-    switch (sortBy) {
-      case "price-low":
-        return sorted.sort(
-          (a, b) =>
-            Math.min(
-              ...a.optionCombinations.map(
-                (combination) => combination.price.discounted
-              )
-            ) -
-            Math.min(
-              ...b.optionCombinations.map(
-                (combination) => combination.price.discounted
-              )
-            )
-        );
-      case "price-high":
-        return sorted.sort(
-          (a, b) =>
-            Math.min(
-              ...b.optionCombinations.map(
-                (combination) => combination.price.discounted
-              )
-            ) -
-            Math.min(
-              ...a.optionCombinations.map(
-                (combination) => combination.price.discounted
-              )
-            )
-        );
-      case "name-low":
-        return sorted.sort((a, b) => a.name.localeCompare(b.name));
-      case "name-high":
-        return sorted.sort((a, b) => b.name.localeCompare(a.name));
-      default:
-        return sorted;
-    }
-  }, [filteredProducts, sortBy]);
-
-  // Get unique categories and colors for filters
-  const colors = [
-    ...new Set(
-      products.flatMap((p) =>
-        p.optionCombinations.map((option) => option.color)
-      )
-    ),
-  ];
-  const memoryOptions = [
-    ...new Set(
-      products.flatMap((p) =>
-        p.optionCombinations.map((option) => option.memory)
-      )
-    ),
-  ];
-  const storageOptions = [
-    ...new Set(
-      products.flatMap((p) =>
-        p.optionCombinations.map((option) => option.storage)
-      )
-    ),
-  ];
-
-  if (!selectedCategory) {
-    return null;
-  }
-
-  // if (loading) return <Loading />;
-  // if (error)
-  //   return <div className="alert alert-danger">Error loading products</div>;
-
   return (
     <Container fluid className="py-4">
-      <Row>
-        <SidebarFilters
-          colors={colors}
-          priceRange={priceRange}
-          searchParams={searchParams}
-          searchTerm={searchTerm}
-          selectedCategory={selectedCategory}
-          selectedColor={selectedColor}
-          setSearchParams={setSearchParams}
-        />
+      <Loading error={error} status={loading} type="product">
+        <Row>
+          <SidebarFilters products={products} />
+          <MainContent products={products} />
+          <button
+            onClick={async () => {
+              const product: TProduct = {
+                brand: faker.company.name(),
+                description: faker.commerce.productDescription(),
+                id: crypto.randomUUID(),
+                releaseDate: faker.date.past().getTime(),
+                imageUrls: {
+                  main: faker.image.url({ width: 640, height: 480 }),
+                  hover: faker.image.url({ width: 640, height: 480 }),
+                },
+                max: 1000,
+                name: faker.commerce.productName(),
+                categories: [
+                  CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)].id,
+                ],
+                optionCombinations: [
+                  {
+                    color: {
+                      name: faker.color.human(),
+                      hex: faker.color.rgb(),
+                    },
+                    storage: "1TB",
+                    memory: "16GB",
+                    price: {
+                      original: 10,
+                      discounted: 10,
+                      currency: "$",
+                      discountPercent: 0,
+                    },
+                    stock: 10,
+                  },
+                ],
+                rating: 4.5,
+              };
 
-        <MainContent
-          sortedProducts={sortedProducts}
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-          sortBy={sortBy}
-        />
-      </Row>
+              const { error } = await supabase
+                .from("products")
+                .insert([product]);
+
+              if (error) {
+                console.error("Failed to insert product:", error.message);
+              } else {
+                console.log(`✅ Inserted: ${name}`);
+              }
+
+              console.log("🌱 Seeding done.");
+            }}
+          >
+            seed
+          </button>
+        </Row>
+      </Loading>
     </Container>
   );
 }

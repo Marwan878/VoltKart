@@ -1,20 +1,18 @@
 export type TProduct = {
-  id: number;
+  id: string;
   name: string;
   categories: string[];
   imageUrls: {
     main: string;
     hover: string;
   };
-  url: string;
   releaseDate: number;
-  img: string;
-  max: number;
+  max?: number;
   optionCombinations: [
     {
-      color: string;
-      storage: number;
-      memory: number;
+      color: TColor;
+      storage: string;
+      memory: string;
       price: {
         original: number;
         discounted: number;
@@ -26,8 +24,13 @@ export type TProduct = {
   ];
   rating: number;
   description: string;
-  brand?: string;
+  brand: string;
   quantity?: number;
   isLiked?: boolean;
   isAuthenticated?: boolean;
+};
+
+export type TColor = {
+  name: string;
+  hex: string;
 };

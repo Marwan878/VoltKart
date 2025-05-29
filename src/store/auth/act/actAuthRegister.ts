@@ -1,6 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import axiosErrorHandler from "@utils/axiosErrorHandler";
 
 type TFormData = {
   firstName: string;

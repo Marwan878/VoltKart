@@ -1,19 +1,88 @@
 import { TProduct } from "@types";
+import { useMemo } from "react";
 import { Col } from "react-bootstrap";
-import { SetURLSearchParams } from "react-router-dom";
 import SortingFilter from "./SortingFilter";
+import { useSearchParams } from "react-router-dom";
 
-export default function MainContent({
-  sortedProducts,
-  searchParams,
-  setSearchParams,
-  sortBy,
-}: {
-  sortedProducts: TProduct[];
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-  sortBy: string;
-}) {
+export default function MainContent({ products }: { products: TProduct[] }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortBy = searchParams.get("sortBy") ?? "default";
+
+  const filteredProducts = useMemo(() => {
+    const priceRange = (searchParams
+      .get("priceRange")
+      ?.split("-")
+      .map(Number) ?? [0, 500]) as [number, number];
+    const searchTerm = searchParams.get("searchTerm") ?? "";
+    const selectedCategory = searchParams.get("category") ?? "";
+    const selectedColorName = searchParams.get("color") ?? "";
+
+    return products.filter((product) => {
+      const matchesSearch =
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesCategory =
+        !selectedCategory || product.categories.includes(selectedCategory);
+
+      const matchesColor =
+        !selectedColorName ||
+        product.optionCombinations.some(
+          (option) => option.color.name === selectedColorName
+        );
+
+      const matchesPrice =
+        product.optionCombinations.some(
+          (option) => option.price.discounted >= priceRange[0]
+        ) &&
+        product.optionCombinations.some(
+          (option) => option.price.discounted <= priceRange[1]
+        );
+
+      return matchesSearch && matchesCategory && matchesColor && matchesPrice;
+    });
+  }, [searchParams, products]);
+
+  const sortedProducts = useMemo(() => {
+    const sorted = [...filteredProducts];
+    switch (sortBy) {
+      case "price-low":
+        return sorted.sort(
+          (a, b) =>
+            Math.min(
+              ...a.optionCombinations.map(
+                (combination) => combination.price.discounted
+              )
+            ) -
+            Math.min(
+              ...b.optionCombinations.map(
+                (combination) => combination.price.discounted
+              )
+            )
+        );
+      case "price-high":
+        return sorted.sort(
+          (a, b) =>
+            Math.min(
+              ...b.optionCombinations.map(
+                (combination) => combination.price.discounted
+              )
+            ) -
+            Math.min(
+              ...a.optionCombinations.map(
+                (combination) => combination.price.discounted
+              )
+            )
+        );
+      case "name-low":
+        return sorted.sort((a, b) => a.name.localeCompare(b.name));
+      case "name-high":
+        return sorted.sort((a, b) => b.name.localeCompare(a.name));
+      default:
+        return sorted;
+    }
+  }, [filteredProducts, sortBy]);
   return (
     <Col lg={9}>
       {/* Header */}

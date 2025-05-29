@@ -1,0 +1,17 @@
+.checkboxContainer input {
+  display: none;
+}
+
+.checkbox {
+  transition: color 0.3s ease;
+}
+
+.checkbox:hover {
+  color: var(--light-blue);
+}
+
+.brandName {
+}
+
+.brandQuantity {
+}

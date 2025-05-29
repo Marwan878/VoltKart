@@ -1,39 +1,37 @@
-import { Form } from "react-bootstrap";
-import { SetURLSearchParams } from "react-router-dom";
+import { TColor } from "@types";
+
+import CheckboxFilter from "./CheckboxFilter";
 
 export default function Colors({
-  selectedColor,
-  setSearchParams,
-  searchParams,
-  colors,
+  options,
+  selectedColorsNames,
 }: {
-  selectedColor: string;
-  setSearchParams: SetURLSearchParams;
-  searchParams: URLSearchParams;
-  colors: string[];
+  options: TColor[];
+  selectedColorsNames: string[];
 }) {
   return (
-    <div className="mb-4">
-      <h6 className="fw-bold mb-3">Color</h6>
-      <Form.Group>
-        <Form.Select
-          value={selectedColor}
-          onChange={(e) =>
-            setSearchParams({
-              ...Object.fromEntries(searchParams.entries()),
-              selectedColor: e.target.value,
-            })
-          }
-          className="border-0 bg-light"
-        >
-          <option value="">All Colors</option>
-          {colors.map((color) => (
-            <option key={color} value={color}>
-              {color}
-            </option>
-          ))}
-        </Form.Select>
-      </Form.Group>
-    </div>
+    <CheckboxFilter
+      affectedParameter="colors"
+      computeIsSelected={(color: TColor) =>
+        selectedColorsNames.includes(color.name)
+      }
+      computeNewParameterValue={(color) => color.name}
+      heading="Filter by Color"
+      label={(color: TColor) => (
+        <span className="d-flex align-items-center">
+          <span
+            className="me-2 rounded-circle"
+            style={{
+              width: "1rem",
+              height: "1rem",
+              backgroundColor: color.hex,
+            }}
+          ></span>
+          {color.name}
+        </span>
+      )}
+      options={options}
+      computeCheckboxId={(color: TColor) => `color-${color.name}`}
+    />
   );
 }
