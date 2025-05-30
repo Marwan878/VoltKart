@@ -1,18 +1,15 @@
 import Slider from "rc-slider";
-import { SetURLSearchParams } from "react-router-dom";
-
-import "rc-slider/assets/index.css";
+import { useSearchParams } from "react-router-dom";
 import Filter from "./FilterContainer";
 
-export default function PriceRange({
-  range,
-  searchParams,
-  setSearchParams,
-}: {
-  range: [number, number];
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-}) {
+import "rc-slider/assets/index.css";
+
+export default function PriceRange() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const range = (searchParams.get("priceRange")?.split("-").map(Number) as [
+    number,
+    number
+  ]) ?? [0, 500];
   return (
     <Filter heading="Filter by Price">
       <Slider
@@ -21,7 +18,7 @@ export default function PriceRange({
         min={0}
         max={5000}
         value={range}
-        onChange={(range) =>
+        onChange={(range: [number, number]) =>
           setSearchParams({
             ...Object.fromEntries(searchParams.entries()),
             priceRange: `${range[0]}-${range[1]}`,

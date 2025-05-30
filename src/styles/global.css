@@ -67,3 +67,7 @@ body {
 .notFound p {
   font-size: 50px;
 }
+
+.form-check-label {
+  width: 100%;
+}

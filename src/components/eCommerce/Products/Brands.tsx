@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import CheckboxFilter from "./CheckboxFilter";
 
 import styles from "./style.module.css";
@@ -16,12 +17,24 @@ export default function Brands({
       computeNewParameterValue={(brand) => brand}
       heading="Filter by Brand"
       label={(brand: string) => (
-        <span
-          style={{ fontSize: "0.8rem" }}
-          className="d-flex justify-content-between"
-        >
-          <span>{brand}</span>
-          <span className="d-inline-block ms-auto">0</span>
+        <span className={styles.brand}>
+          <div className="d-flex align-items-center gap-2">
+            <Check
+              size={15}
+              style={{
+                visibility: brand === selectedBrand ? "visible" : "hidden",
+                color: "var(--light-blue)",
+              }}
+            />
+            <span className={styles.brandName}>{brand}</span>
+          </div>
+          <span
+            className={`${styles.quantity} ${
+              brand === selectedBrand ? styles.selected : ""
+            }`}
+          >
+            0
+          </span>
         </span>
       )}
       options={options}

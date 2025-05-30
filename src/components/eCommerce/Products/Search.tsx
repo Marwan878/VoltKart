@@ -1,27 +1,20 @@
 import { ChangeEvent } from "react";
 import { Form } from "react-bootstrap";
-import { SetURLSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
-export default function Search({
-  searchTerm,
-  searchParams,
-  setSearchParams,
-}: {
-  searchTerm: string;
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-}) {
+export default function Search() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchTerm = searchParams.get("searchTerm") ?? "";
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("searchTerm", e.target.value);
+
     if (e.target.value === "") {
-      const params = new URLSearchParams(searchParams);
-      params.delete("sortBy");
-      setSearchParams(params);
-    } else {
-      setSearchParams({
-        ...Object.fromEntries(searchParams.entries()),
-        searchTerm: e.target.value,
-      });
+      params.delete("searchTerm");
     }
+
+    setSearchParams(params);
   };
 
   return (

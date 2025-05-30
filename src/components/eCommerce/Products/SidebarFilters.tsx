@@ -10,27 +10,12 @@ import Search from "./Search";
 import StorageOptions from "./StorageOptions";
 
 export default function SidebarFilters({ products }: { products: TProduct[] }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const selectedMemory = searchParams.get("memory") ?? "";
   const selectedStorage = searchParams.get("storage") ?? "";
   const selectedBrand = searchParams.get("brand") ?? "";
   const selectedColorsNames = searchParams.get("colors")?.split(",") ?? [];
-  const searchTerm = searchParams.get("searchTerm") ?? "";
-  const priceRange = (searchParams
-    .get("priceRange")
-    ?.split("-")
-    .map(Number) ?? [
-    0,
-    Math.max(
-      ...products.flatMap((product) =>
-        product.optionCombinations.map(
-          (combination) => combination.price.discounted
-        )
-      )
-    ),
-  ]) as [number, number];
-  const selectedCategory = searchParams.get("category") ?? "";
 
   // Get unique categories and colors for filters
   const colors = [
@@ -58,20 +43,11 @@ export default function SidebarFilters({ products }: { products: TProduct[] }) {
 
   return (
     <Col lg={3} className="mb-4">
-      <Card className="border-0 shadow-sm">
+      <Card className="border-0">
         <Card.Body>
-          <Search
-            searchTerm={searchTerm}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-
-          <Categories selectedCategory={selectedCategory} />
-          <PriceRange
-            range={priceRange}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
+          <Search />
+          <Categories />
+          <PriceRange />
 
           {colors.length > 0 && (
             <Colors

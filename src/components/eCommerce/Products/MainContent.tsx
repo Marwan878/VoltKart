@@ -3,11 +3,13 @@ import { useMemo } from "react";
 import { Col } from "react-bootstrap";
 import SortingFilter from "./SortingFilter";
 import { useSearchParams } from "react-router-dom";
+import useIsMobile from "@hooks/useIsMobile";
 
 export default function MainContent({ products }: { products: TProduct[] }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const sortBy = searchParams.get("sortBy") ?? "default";
+  const isMobile = useIsMobile();
 
   const filteredProducts = useMemo(() => {
     const priceRange = (searchParams
@@ -85,16 +87,11 @@ export default function MainContent({ products }: { products: TProduct[] }) {
   }, [filteredProducts, sortBy]);
   return (
     <Col lg={9}>
-      {/* Header */}
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <p className="text-muted mb-0">
+        <p className="text-muted mb-0 text-center w-100 mt-3">
           Showing all {sortedProducts.length} results
         </p>
-        <SortingFilter
-          sortBy={sortBy}
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-        />
+        {!isMobile && <SortingFilter />}
       </div>
 
       {/* Products Grid */}

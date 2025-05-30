@@ -10,8 +10,48 @@
   color: var(--light-blue);
 }
 
-.brandName {
+.brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 0.8rem;
 }
 
-.brandQuantity {
+.brandName {
+  transition: color 0.3s ease;
+}
+
+.quantity {
+  transition: background-color 0.1s ease;
+  display: inline-block;
+  border-radius: 99px;
+  padding: 0.05rem 0.8rem;
+  text-align: center;
+}
+
+.brand:hover .brandName {
+  color: var(--light-blue);
+}
+
+.brand:hover .quantity,
+.color:hover .quantity,
+.category:hover .quantity,
+.quantity.selected {
+  color: white;
+  background-color: var(--light-blue);
+}
+
+.categoryName {
+  transition: color 0.3s ease;
+}
+
+.category:hover .categoryName {
+  color: var(--light-blue);
+}
+
+:global(.nav-link.active) .categoryName {
+  font-weight: bold;
+  color: var(--light-blue);
 }

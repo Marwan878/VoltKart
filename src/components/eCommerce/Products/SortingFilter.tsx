@@ -1,18 +1,12 @@
 import { FILTERS } from "@constants";
 import { Form } from "react-bootstrap";
-import { SetURLSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
-export default function SortingFilter({
-  sortBy,
-  setSearchParams,
-  searchParams,
-}: {
-  sortBy: string;
-  searchParams: URLSearchParams;
-  setSearchParams: SetURLSearchParams;
-}) {
+export default function SortingFilter() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sortBy") ?? "default";
   return (
-    <Form.Group className="mb-0" style={{ minWidth: "200px" }}>
+    <Form.Group className="mb-0">
       <Form.Select
         value={sortBy}
         onChange={(e) =>
