@@ -1,15 +1,20 @@
 import { Check } from "lucide-react";
 import CheckboxFilter from "./CheckboxFilter";
 
+import { useAppSelector } from "@store/hooks";
 import styles from "./style.module.css";
 
 export default function Brands({
   options,
   selectedBrand,
 }: {
-  options: string[];
-  selectedBrand: string;
+  readonly options: string[];
+  readonly selectedBrand: string;
 }) {
+  const brandsProductsCount = useAppSelector(
+    (state) => state.products.brandsProductsCount
+  );
+
   return (
     <CheckboxFilter
       affectedParameter="brand"
@@ -33,7 +38,7 @@ export default function Brands({
               brand === selectedBrand ? styles.selected : ""
             }`}
           >
-            0
+            {brandsProductsCount[brand] ?? 0}
           </span>
         </span>
       )}

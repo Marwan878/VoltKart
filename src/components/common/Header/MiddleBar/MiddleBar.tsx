@@ -13,9 +13,9 @@ export default function MiddleBar({
   onSidebarOpen,
   onSidebarClose,
 }: {
-  sidebarOpen: boolean;
-  onSidebarOpen: () => void;
-  onSidebarClose: () => void;
+  readonly sidebarOpen: boolean;
+  readonly onSidebarOpen: () => void;
+  readonly onSidebarClose: () => void;
 }) {
   const wishlistTotalQuantity = useAppSelector(
     (state) => state.wishlist.itemsId.length

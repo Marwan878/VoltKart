@@ -1,15 +1,14 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ButtonHTMLAttributes } from "react";
 
 import styles from "./style.module.css";
 
 export default function Button({
   children,
-  type,
+  variant,
   className,
-  style,
-}: {
-  children: ReactNode;
-  type:
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant:
     | "whiteToBlue"
     | "blueToBlack"
     | "blackToBlue"
@@ -18,12 +17,11 @@ export default function Button({
     | "whiteToAqua"
     | "aquaToWhite";
   className?: string;
-  style?: CSSProperties;
 }) {
   return (
     <button
-      className={`${styles[type]} rounded-pill px-4 py-2 border-0 ${className}`}
-      style={style}
+      className={`${styles[variant]} rounded-pill px-4 py-2 ${className}`}
+      {...props}
     >
       {children}
     </button>

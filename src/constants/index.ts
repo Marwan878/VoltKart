@@ -1,4 +1,9 @@
-const MOBILE_BREAKPOINT = 768;
+const SCREEN_TO_BREAKPOINT = {
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+} as const;
 
 const SIDEBAR_LINKS = {
   Home: [
@@ -280,7 +285,7 @@ export {
   FEATURES2,
   NAVIGATION_LINKS,
   HERO_IMAGES,
-  MOBILE_BREAKPOINT,
+  SCREEN_TO_BREAKPOINT,
   SIDEBAR_LINKS,
   FILTERS,
 };

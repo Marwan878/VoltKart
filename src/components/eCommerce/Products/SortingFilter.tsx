@@ -17,6 +17,7 @@ export default function SortingFilter() {
         }
         aria-label="Sort products"
         className="border-0 bg-light"
+        style={{ minWidth: "10rem" }}
       >
         {FILTERS.map((filter) => (
           <option key={filter.value} value={filter.value}>

@@ -4,15 +4,13 @@ import { getCartTotalQuantitySelector } from "./selectors";
 import { TProduct, TLoading, isString } from "@types";
 
 interface ICartState {
-  items: { [key: string]: number };
-  productsFullInfo: TProduct[];
+  products: TProduct[];
   loading: TLoading;
   error: null | string;
 }
 
 const initialState: ICartState = {
-  items: {},
-  productsFullInfo: [],
+  products: [],
   loading: "idle",
   error: null,
 };
@@ -22,28 +20,36 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const id = action.payload;
-      if (state.items[id]) {
-        state.items[id]++;
+      const { product, currentCombination } = action.payload;
+      const productInCart = state.products.find((el) =>
+        el.optionCombinations.find((el) => el.sku === currentCombination.sku)
+      );
+
+      if (productInCart) {
+        productInCart.quantity = (productInCart.quantity ?? 0) + 1;
       } else {
-        state.items[id] = 1;
+        state.products.push({
+          ...product,
+          quantity: 1,
+        });
       }
     },
     cartItemChangeQuantity: (state, action) => {
-      state.items[action.payload.id] = action.payload.quantity;
+      const { currentCombination, quantity } = action.payload;
+      const productInCart = state.products.find((el) =>
+        el.optionCombinations.find((el) => el.sku === currentCombination.sku)
+      );
+
+      if (productInCart) {
+        productInCart.quantity = quantity;
+      }
     },
     cartItemRemove: (state, action) => {
-      delete state.items[action.payload];
-      state.productsFullInfo = state.productsFullInfo.filter(
-        (el) => el.id !== action.payload
-      );
+      delete state.products[action.payload];
+      state.products = state.products.filter((el) => el.id !== action.payload);
     },
     cleanCartProductsFullInfo: (state) => {
-      state.productsFullInfo = [];
-    },
-    clearCartAfterPlaceOrder: (state) => {
-      state.items = {};
-      state.productsFullInfo = [];
+      state.products = [];
     },
   },
   extraReducers: (builder) => {
@@ -53,7 +59,7 @@ const cartSlice = createSlice({
     });
     builder.addCase(actGetProductsByItems.fulfilled, (state, action) => {
       state.loading = "succeeded";
-      state.productsFullInfo = action.payload;
+      state.products = action.payload;
     });
     builder.addCase(actGetProductsByItems.rejected, (state, action) => {
       state.loading = "failed";
@@ -71,7 +77,6 @@ export const {
   cartItemChangeQuantity,
   cartItemRemove,
   cleanCartProductsFullInfo,
-  clearCartAfterPlaceOrder,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

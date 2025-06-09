@@ -1,3 +1,4 @@
+import { useAppSelector } from "@store/hooks";
 import { TColor } from "@types";
 import CheckboxFilter from "./CheckboxFilter";
 
@@ -6,12 +7,19 @@ import styles from "./style.module.css";
 export default function Colors({
   options,
   selectedColorsNames,
+  containerClassName,
 }: {
-  options: TColor[];
-  selectedColorsNames: string[];
+  readonly options: TColor[];
+  readonly selectedColorsNames: string[];
+  readonly containerClassName?: string;
 }) {
+  const colorsProductsCount = useAppSelector(
+    (state) => state.products.colorsProductsCount
+  );
+
   return (
     <CheckboxFilter
+      containerClassName={containerClassName}
       affectedParameter="colors"
       computeIsSelected={(color: TColor) =>
         selectedColorsNames.includes(color.name)
@@ -40,7 +48,7 @@ export default function Colors({
                 selectedColorsNames.includes(color.name) ? styles.selected : ""
               }`}
             >
-              0
+              {colorsProductsCount[color.name] ?? 0}
             </span>
           </div>
         </span>

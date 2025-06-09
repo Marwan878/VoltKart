@@ -24,7 +24,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header className="mb-5">
       <MiddleBar
         sidebarOpen={sidebarOpen}
         onSidebarOpen={handleSidebarOpen}

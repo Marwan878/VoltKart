@@ -1,14 +1,12 @@
-import Product from "./Product/Product";
-import ProductInfo from "./ProductInfo/ProductInfo";
+import Product from "./ProductCard/ProductCard";
 import CartItem from "./CartItem/CartItem";
 import CartItemList from "./CartItemList/CartItemList";
 import CartSubtotalPrice from "./CartSubtotalPrice/CartSubtotalPrice";
 import MainContent from "./Products/MainContent";
-import SidebarFilters from "./Products/SidebarFilters";
+import SidebarFilters from "./SidebarFilters/SidebarFilters";
 
 export {
   Product,
-  ProductInfo,
   CartItem,
   CartItemList,
   CartSubtotalPrice,

@@ -1,6 +1,5 @@
 import { useAppDispatch } from "@store/hooks";
 import { actPlaceOrder } from "@store/orders/ordersSlice";
-import { clearCartAfterPlaceOrder } from "@store/cart/cartSlice";
 import { useState } from "react";
 import { TProduct } from "@types";
 import { Button, Modal, Spinner } from "react-bootstrap";
@@ -16,13 +15,12 @@ const CartSubtotalPrice = ({
   userAccessToken,
 }: CartSubtotalPriceProps) => {
   const dispatch = useAppDispatch();
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   const subtotal = products.reduce((accumulator, el) => {
-    const price = el.price;
+    const price = el.price.discounted;
     const quantity = el.quantity;
     if (quantity && typeof quantity === "number") {
       return accumulator + price * quantity;

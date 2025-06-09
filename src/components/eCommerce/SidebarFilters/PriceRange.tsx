@@ -4,19 +4,26 @@ import Filter from "./FilterContainer";
 
 import "rc-slider/assets/index.css";
 
-export default function PriceRange() {
+export default function PriceRange({
+  mostExpensiveProductPrice,
+  cheapestProductPrice,
+}: {
+  readonly mostExpensiveProductPrice: number;
+  readonly cheapestProductPrice: number;
+}) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const range = (searchParams.get("priceRange")?.split("-").map(Number) as [
-    number,
-    number
-  ]) ?? [0, 500];
+  const range = (searchParams.get("priceRange")?.split("-").map(Number) ?? [
+    cheapestProductPrice,
+    mostExpensiveProductPrice,
+  ]) as [number, number];
+
   return (
     <Filter heading="Filter by Price">
       <Slider
         range
         allowCross={false}
-        min={0}
-        max={5000}
+        min={cheapestProductPrice}
+        max={mostExpensiveProductPrice}
         value={range}
         onChange={(range: [number, number]) =>
           setSearchParams({

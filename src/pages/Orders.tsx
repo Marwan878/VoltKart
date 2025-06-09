@@ -1,7 +1,6 @@
 import useOrders from "@hooks/useOrders";
 import { Loading } from "@components/feedback";
 import { Heading } from "@components/common";
-import { ProductInfo } from "@components/eCommerce";
 import { Table, Modal } from "react-bootstrap";
 
 const Orders = () => {
@@ -23,15 +22,7 @@ const Orders = () => {
         </Modal.Header>
         <Modal.Body>
           {selectedProduct.map((el) => (
-            <ProductInfo
-              key={el.id}
-              title={el.title}
-              img={el.img}
-              price={el.price}
-              quantity={el.quantity}
-              direction="column"
-              style={{ marginBottom: "10px" }}
-            />
+
           ))}
         </Modal.Body>
       </Modal>

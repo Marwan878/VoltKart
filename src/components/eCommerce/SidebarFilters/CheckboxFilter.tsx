@@ -13,20 +13,22 @@ export default function CheckboxFilter<T>({
   computeCheckboxId,
   computeIsSelected,
   computeNewParameterValue,
+  containerClassName,
 }: {
-  heading: string;
-  options: T[];
-  affectedParameter: string;
-  label: (option: T) => ReactNode;
-  computeCheckboxId: (option: T) => string;
-  computeIsSelected: (option: T) => boolean;
-  computeNewParameterValue: (option: T) => string;
+  readonly heading: string;
+  readonly options: T[];
+  readonly affectedParameter: string;
+  readonly label: (option: T) => ReactNode;
+  readonly computeCheckboxId: (option: T) => string;
+  readonly computeIsSelected: (option: T) => boolean;
+  readonly computeNewParameterValue: (option: T) => string;
+  readonly containerClassName?: string;
 }) {
   const [, setSearchParams] = useSearchParams();
 
   return (
     <FilterContainer heading={heading}>
-      <Form>
+      <Form className={`gap-2 ${containerClassName}`}>
         {options.map((option, i) => (
           <Form.Check
             className={styles.checkboxContainer}
@@ -41,8 +43,19 @@ export default function CheckboxFilter<T>({
                 const values =
                   newParams.get(affectedParameter)?.split(",") || [];
 
-                if (computeIsSelected(option) && values.length === 1) {
-                  newParams.delete(affectedParameter);
+                if (computeIsSelected(option)) {
+                  if (values.length === 1) {
+                    newParams.delete(affectedParameter);
+                  } else {
+                    newParams.set(
+                      affectedParameter,
+                      values
+                        .filter(
+                          (value) => value !== computeNewParameterValue(option)
+                        )
+                        .join(",")
+                    );
+                  }
                 } else {
                   newParams.set(
                     affectedParameter,

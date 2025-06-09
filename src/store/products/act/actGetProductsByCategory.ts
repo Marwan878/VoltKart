@@ -5,23 +5,19 @@ import { TProduct } from "@types";
 const actGetProductsByCategory = createAsyncThunk(
   "products/actGetProductsByCategory",
   async (category: string, thunkAPI) => {
-    const { rejectWithValue, signal } = thunkAPI;
+    const { rejectWithValue } = thunkAPI;
 
     try {
-      const controller = new AbortController();
-      signal.addEventListener("abort", () => controller.abort());
-
       const { data, error } = await supabase
         .from("products")
         .select("*")
-        .contains("categories", [category])
-        .abortSignal(controller.signal);
+        .contains("categories", [category]);
 
       if (error) throw new Error(error.message);
 
       return data as TProduct[];
     } catch (error) {
-      return rejectWithValue(error || "Failed to fetch products");
+      return rejectWithValue(error);
     }
   }
 );

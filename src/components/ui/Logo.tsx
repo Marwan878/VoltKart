@@ -1,17 +1,18 @@
+import { Link } from "react-router-dom";
 import style from "./style.module.css";
 
 export default function Logo({
   theme = "light",
 }: {
-  theme?: "light" | "dark";
+  readonly theme?: "light" | "dark";
 }) {
   return (
-    <a href="#" className={style.logo}>
+    <Link to="/" className={style.logo}>
       <img
         src={theme === "dark" ? "/brand.png" : "/brand-light.png"}
         alt=""
         className=""
       />
-    </a>
+    </Link>
   );
 }

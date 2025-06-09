@@ -1,4 +1,5 @@
 import { CATEGORIES } from "@constants";
+import { useAppSelector } from "@store/hooks";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +9,11 @@ export default function Categories() {
   const { category: selectedCategory } = useParams<{
     category: string;
   }>();
+
+  const categoriesProductsCount = useAppSelector(
+    (state) => state.products.categoriesProductsCount
+  );
+
   return (
     <div className="mb-4">
       <h6 className="fw-bold mb-3">Categories</h6>
@@ -30,7 +36,7 @@ export default function Categories() {
                   selectedCategory === category.id ? styles.selected : ""
                 }`}
               >
-                {0}
+                {categoriesProductsCount[category.id] ?? 0}
               </span>
             </Nav.Link>
           </li>

@@ -1,9 +1,13 @@
 import { Card } from "react-bootstrap";
 
-import type { TProduct } from "@/types";
+import type { TProduct } from "@types";
 import styles from "../style.module.css";
 
-export default function ProductCard({ product }: { product: TProduct }) {
+export default function ProductCard({
+  product,
+}: {
+  readonly product: TProduct;
+}) {
   return (
     <Card
       className={`border-0 text-center position-relative ${styles.productCard}`}

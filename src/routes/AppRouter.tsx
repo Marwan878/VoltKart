@@ -17,6 +17,7 @@ const Login = lazy(() => import("@pages/Login"));
 const Register = lazy(() => import("@pages/Register"));
 const Account = lazy(() => import("@pages/Account"));
 const Orders = lazy(() => import("@pages/Orders"));
+const Product = lazy(() => import("@pages/Product"));
 
 // error
 import Error from "@pages/Error";
@@ -71,6 +72,14 @@ const router = createBrowserRouter([
         element: (
           <PageSuspenseFallback>
             <Products />
+          </PageSuspenseFallback>
+        ),
+      },
+      {
+        path: "/product/:id",
+        element: (
+          <PageSuspenseFallback>
+            <Product />
           </PageSuspenseFallback>
         ),
       },
