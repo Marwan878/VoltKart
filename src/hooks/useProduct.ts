@@ -11,6 +11,15 @@ export const useProduct = () => {
   const [status, setStatus] = useState<TLoading>("idle");
   const [error, setError] = useState<string | null>(null);
 
+  const isWishlisted = useAppSelector((state) =>
+    state.wishlist.itemsId.includes(id as string)
+  );
+
+  const quantity = useAppSelector(
+    (state) =>
+      state.cart.products.find((product) => product.id === id)?.quantity ?? 1
+  );
+
   useEffect(() => {
     if (!id) {
       return;
@@ -31,7 +40,7 @@ export const useProduct = () => {
           throw new Error(error.message);
         }
 
-        setProduct(data);
+        setProduct({ ...data, quantity, isWishlisted });
         setStatus("succeeded");
       } catch (error) {
         console.error(error);
@@ -41,15 +50,7 @@ export const useProduct = () => {
     };
 
     getProduct();
-  }, [dispatch, id]);
+  }, [dispatch, id, isWishlisted, quantity]);
 
-  const isWishlisted = useAppSelector((state) =>
-    state.wishlist.itemsId.includes(id as string)
-  );
-  const quantity = useAppSelector(
-    (state) =>
-      state.cart.products.find((product) => product.id === id)?.quantity ?? 1
-  );
-
-  return { product, quantity, isWishlisted, status, error };
+  return { product, status, error, setProduct };
 };

@@ -1,18 +1,10 @@
+import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { TUser } from "@types";
 
 type TFormData = {
   email: string;
   password: string;
-};
-
-type TResponse = {
-  user: {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
-  accessToken: string;
 };
 
 const actAuthLogin = createAsyncThunk(
@@ -21,10 +13,35 @@ const actAuthLogin = createAsyncThunk(
     const { rejectWithValue } = thunk;
 
     try {
-      const res = await axios.post<TResponse>("/login", formData);
-      return res.data;
+      const { data: signInData, error: signInError } =
+        await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+
+      if (signInError) {
+        return rejectWithValue(signInError);
+      }
+
+      const response: {
+        user: TUser;
+        accessToken: string;
+      } = {
+        user: {
+          id: signInData.user.id,
+          email: signInData.user.email ?? "",
+          firstName: signInData.user.user_metadata.firstName,
+          lastName: signInData.user.user_metadata.lastName,
+          role: (signInData.user.user_metadata.role ?? "user") as TUser["role"],
+        },
+        accessToken: signInData.session.access_token,
+      };
+
+      console.log(response);
+
+      return response;
     } catch (error) {
-      return rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(error);
     }
   }
 );

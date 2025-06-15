@@ -4,7 +4,7 @@ import { Col } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import Brands from "./Brands";
 import Categories from "./Categories";
-import Colors from "./Colors";
+import Colors from "../common/Options/ColorOptions/ColorOptions";
 import MemoryOptions from "./MemoryOptions";
 import PriceRange from "./PriceRange";
 import Search from "./Search";

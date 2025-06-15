@@ -18,7 +18,7 @@ export default function MiddleBar({
   readonly onSidebarClose: () => void;
 }) {
   const wishlistTotalQuantity = useAppSelector(
-    (state) => state.wishlist.itemsId.length
+    (state) => state.wishlist.productIds.length
   );
   const cartTotalQuantity = useAppSelector(getCartTotalQuantitySelector);
 

@@ -1,25 +1,23 @@
+import { TProduct, TProductOptionCombination } from "@types";
 import { memo } from "react";
-import { Form, Button } from "react-bootstrap";
-import { TProduct } from "@types";
+import { Form } from "react-bootstrap";
 import styles from "./styles.module.css";
 
 const { cartItem, cartItemSelection } = styles;
 
 type CartItemProps = TProduct & {
-  changeQuantityHandler: (id: number, quantity: number) => void;
+  changeQuantityHandler: (id: string, sku: string, quantity: number) => void;
   removeItemHandler: (id: number) => void;
+  combination: TProductOptionCombination;
 };
 
 const CartItem = memo(
   ({
     id,
-    title,
-    img,
-    price,
     max,
     quantity,
     changeQuantityHandler,
-    removeItemHandler,
+    combination,
   }: CartItemProps) => {
     // render option list
     const renderOptions = Array(max)
@@ -35,22 +33,11 @@ const CartItem = memo(
 
     const changeQuantity = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const quantity = +event.target.value;
-      changeQuantityHandler(id, quantity);
+      changeQuantityHandler(id, combination.sku, quantity);
     };
 
     return (
       <div className={cartItem}>
-        <ProductInfo title={title} price={price} img={img} direction="column">
-          <Button
-            variant="secondary"
-            style={{ color: "white", width: "100px" }}
-            className="mt-auto"
-            onClick={() => removeItemHandler(id)}
-          >
-            Remove
-          </Button>
-        </ProductInfo>
-
         <div className={cartItemSelection}>
           <span className="d-block mb-1">Quantity</span>
           <Form.Select value={quantity} onChange={changeQuantity}>

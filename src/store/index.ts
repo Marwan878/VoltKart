@@ -20,19 +20,19 @@ import toasts from "./toasts/toastsSlice";
 const rootPersistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "auth"],
-};
-
-const authPersistConfig = {
-  key: "auth",
-  storage,
-  whiteList: ["user", "accessToken"],
+  whitelist: ["cart"],
 };
 
 const cartPersistConfig = {
   key: "cart",
   storage,
   whitelist: ["items"],
+};
+
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  whitelist: ["user", "accessToken"],
 };
 
 const rootReducer = combineReducers({

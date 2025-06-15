@@ -4,6 +4,8 @@ import generateRandomNumber from "./generateRandomNumber";
 import sortStorageUnits from "./sortStorageUnits";
 import isProductNew from "./isProductNew";
 import getUniqueObjects from "./getUniqueObjects";
+import getUniqueElements from "./getUniqueElements";
+import addSIfPlural from "./addSIfPlural";
 
 export {
   chunkArray,
@@ -12,4 +14,6 @@ export {
   sortStorageUnits,
   isProductNew,
   getUniqueObjects,
+  getUniqueElements,
+  addSIfPlural,
 };

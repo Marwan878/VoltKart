@@ -1,29 +1,15 @@
-import { ImageCarousel, ProductDetails } from "@components/eCommerce/Product";
+import Product from "@components/eCommerce/Product/Product";
 import { Loading } from "@components/feedback";
 import { useProduct } from "@hooks/useProduct";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
-export default function Product() {
-  const { product, status, error, quantity, isWishlisted } = useProduct();
+export default function ProductPage() {
+  const { product, status, error } = useProduct();
 
   return (
-    <Container className="mh-100vh mb-5">
+    <Container className="min-vh-100 mb-5">
       <Loading status={status} error={error} type="product">
-        {product && (
-          <Row>
-            <Col lg={6} sm={12} className="mt-0">
-              {/* <ImageCarousel imagesUrls={product.imageUrls.rest} /> */}
-              <div className="border border-1 border-red h-100" />
-            </Col>
-            <Col lg={6} sm={12} className="mt-0">
-              <ProductDetails
-                product={product}
-                quantity={quantity}
-                isWishlisted={isWishlisted}
-              />
-            </Col>
-          </Row>
-        )}
+        {product && <Product product={product} />}
       </Loading>
     </Container>
   );

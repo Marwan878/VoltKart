@@ -113,26 +113,6 @@
   margin-top: 0.25rem;
 }
 
-.colorSwatch {
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  border: 0.125rem solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  position: relative;
-}
-
-.colorSwatch:hover {
-  transform: scale(1.1);
-}
-
-.colorSwatch.selected {
-  border-color: #333;
-  box-shadow: 0 0 0 0.125rem rgba(0, 0, 0, 0.1);
-}
-
 .ramOptions {
   display: flex;
   gap: 0.375rem;
@@ -235,11 +215,6 @@
 
   .colorOptions {
     gap: 0.5rem;
-  }
-
-  .colorSwatch {
-    width: 1.5rem;
-    height: 1.5rem;
   }
 
   .ramOptions {

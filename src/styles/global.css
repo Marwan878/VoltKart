@@ -15,7 +15,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+table,
+thead,
+tbody,
+tr,
+th,
+td {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -43,20 +49,14 @@ body {
   display: none !important;
 }
 
-.slick-prev {
-  margin-inline-start: 2rem;
-}
-
-.slick-prev::before {
-  content: "";
-}
-
-.slick-next {
-  margin-inline-end: 2rem;
-}
-
+.slick-prev::before,
 .slick-next::before {
-  content: "";
+  display: none;
+}
+
+button.slick-disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
 }
 
 .notFound {

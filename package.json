@@ -29,6 +29,7 @@
     "react-router-dom": "^6.21.3",
     "react-slick": "^0.30.3",
     "redux-persist": "^6.0.0",
+    "slick-carousel": "^1.8.1",
     "swiper": "^11.1.9",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.1",

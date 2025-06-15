@@ -13,7 +13,7 @@ export default function Products() {
 
   return (
     <Container className="py-4 min-vh-100">
-      <Loading error={error} status={loading} type="product">
+      <Loading error={error} status={loading} type="productCard">
         <Row className="g-5">
           {isSmallScreen ? (
             <Stack

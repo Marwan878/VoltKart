@@ -1,7 +1,7 @@
-import { TProduct } from "./product.types";
-
-export type TOrderItem = {
-  id: number;
-  items: TProduct[];
-  subtotal: number;
+export type TOrder = {
+  id: string;
+  user_id: string;
+  status: "pending" | "shipped" | "delivered" | "cancelled";
+  total: number;
+  created_at: string;
 };

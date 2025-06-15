@@ -5,6 +5,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { Container, Stack } from "react-bootstrap";
 import Slider, { type Settings } from "react-slick";
 import ProductCard from "../products-carousel/ProductCard";
+
 import styles from "../style.module.css";
 
 export default function WeeklyDeals() {
@@ -16,12 +17,12 @@ export default function WeeklyDeals() {
     autoplaySpeed: 5000,
     easing: "",
     nextArrow: (
-      <Arrow>
+      <Arrow aria-label="Show next product.">
         <ChevronRight color="black" />
       </Arrow>
     ),
     prevArrow: (
-      <Arrow>
+      <Arrow aria-label="Show previous product.">
         <ChevronLeft color="black" />
       </Arrow>
     ),
@@ -69,7 +70,6 @@ function Arrow(props: Readonly<ComponentPropsWithoutRef<"button">>) {
     <button
       className={className}
       onClick={onClick}
-      aria-label="Show next product."
       style={{
         ...style,
         display: "flex",

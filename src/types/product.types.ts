@@ -1,28 +1,28 @@
+import { CATEGORIES } from "@constants";
+
 export type TProduct = {
   id: string;
   name: string;
-  categories: string[];
-  imageUrls: {
+  categories: (typeof CATEGORIES)[number][];
+  images: {
     main: string;
     hover: string;
-    rest: string[];
+    gallery: string[];
   };
   releaseDate: number;
-  max?: number;
+  maxOrderQuantity?: number;
   optionCombinations: TProductOptionCombination[];
   rating: number;
   description: string;
   brand: string;
   features: string[];
-  quantity?: number;
-  isLiked?: boolean;
-  isAuthenticated?: boolean;
 };
 
 export type TProductOptionCombination = {
   color?: TColor;
   storage?: string;
-  memory?: string;
+  ram?: string;
+  quantity?: number;
   price: TPrice;
   stock: number;
   sku: string;

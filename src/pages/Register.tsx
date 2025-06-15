@@ -1,8 +1,8 @@
-import useRegister from "@hooks/useRegister";
-import { Navigate } from "react-router-dom";
 import { Heading } from "@components/common";
 import { Input } from "@components/Form";
-import { Form, Button, Row, Col, Spinner } from "react-bootstrap";
+import useRegister from "@hooks/useRegister";
+import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const {
@@ -22,7 +22,7 @@ const Register = () => {
   }
 
   return (
-    <>
+    <Container className="min-vh-100 mb-3">
       <Heading title="User Registration" />
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
@@ -63,7 +63,7 @@ const Register = () => {
                   ? "This email is available for use."
                   : ""
               }
-              disabled={emailAvailabilityStatus === "checking" ? true : false}
+              disabled={emailAvailabilityStatus === "checking"}
             />
             <Input
               type="password"
@@ -103,7 +103,7 @@ const Register = () => {
           </Form>
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };
 

@@ -1,0 +1,43 @@
+.brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.brandName {
+  transition: color 0.3s ease;
+}
+
+.checkbox {
+  transition: color 0.3s ease;
+}
+
+.checkbox:hover {
+  color: var(--light-blue);
+}
+
+.brand:hover .brandName {
+  color: var(--light-blue);
+}
+
+.brand:hover .quantity,
+.category:hover .quantity {
+  color: white;
+  background-color: var(--light-blue);
+}
+
+.categoryName {
+  transition: color 0.3s ease;
+}
+
+.category:hover .categoryName {
+  color: var(--light-blue);
+}
+
+:global(.nav-link.active) .categoryName {
+  font-weight: bold;
+  color: var(--light-blue);
+}

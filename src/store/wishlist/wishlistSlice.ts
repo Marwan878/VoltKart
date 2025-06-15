@@ -3,16 +3,17 @@ import actLikeToggle from "./act/actLikeToggle";
 import actGetWishlist from "./act/actGetWishlist";
 import { authLogout } from "@store/auth/authSlice";
 import { TProduct, TLoading, isString } from "@types";
+
 interface IWishlist {
-  itemsId: string[];
-  productsFullInfo: TProduct[];
+  productIds: string[];
+  records: TProduct[];
   error: null | string;
   loading: TLoading;
 }
 
 const initialState: IWishlist = {
-  itemsId: [],
-  productsFullInfo: [],
+  productIds: [],
+  records: [],
   error: null,
   loading: "idle",
 };
@@ -22,7 +23,7 @@ const wishlistSlice = createSlice({
   initialState,
   reducers: {
     cleanWishlistProductsFullInfo: (state) => {
-      state.productsFullInfo = [];
+      state.records = [];
     },
   },
   extraReducers: (builder) => {
@@ -51,11 +52,7 @@ const wishlistSlice = createSlice({
     });
     builder.addCase(actGetWishlist.fulfilled, (state, action) => {
       state.loading = "succeeded";
-      if (action.payload.dataType === "ProductsFullInfo") {
-        state.productsFullInfo = action.payload.data as TProduct[];
-      } else if (action.payload.dataType === "productsIds") {
-        state.itemsId = action.payload.data as string[];
-      }
+      state.records = action.payload;
     });
     builder.addCase(actGetWishlist.rejected, (state, action) => {
       state.loading = "failed";
@@ -66,8 +63,8 @@ const wishlistSlice = createSlice({
 
     // when logout reset
     builder.addCase(authLogout, (state) => {
-      state.itemsId = [];
-      state.productsFullInfo = [];
+      state.productIds = [];
+      state.records = [];
     });
   },
 });

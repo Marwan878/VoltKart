@@ -1,15 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actAuthRegister from "./act/actAuthRegister";
 import actAuthLogin from "./act/actAuthLogin";
-import { TLoading, isString } from "@types";
+import { TLoading, isString, TUser } from "@types";
 
 interface IAuthState {
-  user: {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-  } | null;
+  user: TUser | null;
   accessToken: string | null;
   loading: TLoading;
   error: string | null;
@@ -41,8 +36,16 @@ const authSlice = createSlice({
       state.loading = "pending";
       state.error = null;
     });
-    builder.addCase(actAuthRegister.fulfilled, (state) => {
+    builder.addCase(actAuthRegister.fulfilled, (state, action) => {
       state.loading = "succeeded";
+      state.accessToken = action.payload.session?.access_token ?? null;
+      state.user = {
+        id: action.payload.user?.id ?? "",
+        email: action.payload.user?.email ?? "",
+        firstName: action.payload.user?.user_metadata.firstName ?? "",
+        lastName: action.payload.user?.user_metadata.lastName ?? "",
+        role: (action.payload.user?.role ?? "user") as TUser["role"],
+      };
     });
     builder.addCase(actAuthRegister.rejected, (state, action) => {
       state.loading = "failed";

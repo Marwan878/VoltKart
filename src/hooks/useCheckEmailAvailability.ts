@@ -1,5 +1,5 @@
+import { supabase } from "@lib/supabase";
 import { useState } from "react";
-import axios from "axios";
 
 type TStatus = "idle" | "checking" | "available" | "notAvailable" | "failed";
 
@@ -13,14 +13,19 @@ const useCheckEmailAvailability = () => {
     setEnteredEmail(email);
     setEmailAvailabilityStatus("checking");
     try {
-      const response = await axios.get(`/users?email=${email}`);
-      if (!response.data.length) {
-        setEmailAvailabilityStatus("available");
-      } else {
+      const { data } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("email", email);
+
+      if (data) {
         setEmailAvailabilityStatus("notAvailable");
+      } else {
+        setEmailAvailabilityStatus("available");
       }
     } catch (error) {
       setEmailAvailabilityStatus("failed");
+      throw error;
     }
   };
 

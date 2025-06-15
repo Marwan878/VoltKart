@@ -27,8 +27,11 @@ const LottieHandler = ({ type, message, className }: LottieHandlerProps) => {
       : { fontSize: "19px", marginTop: "30px" };
 
   return (
-    <div className={`d-flex flex-column align-items-center ${className}`}>
-      <Lottie animationData={lottie} style={{ width: "400px" }} />
+    <div className={`d-flex flex-column align-items-center mb-3 ${className}`}>
+      <Lottie
+        animationData={lottie}
+        style={{ width: "100%", maxWidth: "25rem" }}
+      />
       {message && <h3 style={messageStyle}>{message}</h3>}
     </div>
   );

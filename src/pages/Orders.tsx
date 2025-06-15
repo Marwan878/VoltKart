@@ -9,7 +9,6 @@ const Orders = () => {
     error,
     orderList,
     showModal,
-    selectedProduct,
     viewDetailsHandler,
     closeModalHandler,
   } = useOrders();
@@ -20,11 +19,7 @@ const Orders = () => {
         <Modal.Header closeButton>
           <Modal.Title>Products Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {selectedProduct.map((el) => (
-
-          ))}
-        </Modal.Body>
+        <Modal.Body></Modal.Body>
       </Modal>
 
       <Heading title="My Order" />

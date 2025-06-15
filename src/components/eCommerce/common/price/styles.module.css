@@ -1,32 +1,7 @@
-.price {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #333;
-  margin: 0.75rem 0;
-}
-
 .originalPrice {
-  font-size: 0.875rem;
   font-weight: 400;
+  font-size: 1rem;
   color: #999;
   text-decoration: line-through;
-  margin-left: 0.375rem;
-}
-
-@media (min-width: 768px) {
-  .price {
-    font-size: 1.25rem;
-    margin: 1rem 0;
-  }
-
-  .originalPrice {
-    font-size: 1rem;
-    margin-left: 0.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .price {
-    font-size: 1.5rem;
-  }
+  margin-inline-start: 0.5rem;
 }

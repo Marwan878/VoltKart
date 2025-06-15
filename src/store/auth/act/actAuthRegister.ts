@@ -1,3 +1,4 @@
+import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 type TFormData = {
@@ -13,10 +14,25 @@ const actAuthRegister = createAsyncThunk(
     const { rejectWithValue } = thunk;
 
     try {
-      const res = await axios.post("/register", formData);
-      return res.data;
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            role: "user",
+          },
+        },
+      });
+
+      if (error) {
+        return rejectWithValue(error);
+      }
+
+      return data;
     } catch (error) {
-      return rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(error);
     }
   }
 );

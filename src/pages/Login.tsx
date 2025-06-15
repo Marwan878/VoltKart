@@ -2,7 +2,15 @@ import { Navigate } from "react-router-dom";
 import useLogin from "@hooks/useLogin";
 import { Heading } from "@components/common";
 import { Input } from "@components/Form";
-import { Form, Button, Row, Col, Alert, Spinner } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Alert,
+  Spinner,
+  Container,
+} from "react-bootstrap";
 
 const Login = () => {
   const {
@@ -21,7 +29,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <Container className="min-vh-100">
       <Heading title="User Login" />
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
@@ -33,7 +41,8 @@ const Login = () => {
 
           {searchParams.get("message") === "account_created" && (
             <Alert variant="success">
-              Your account successfully created, please login
+              Your account successfully created, please check your email inbox
+              and login
             </Alert>
           )}
           <Form onSubmit={handleSubmit(submitForm)}>
@@ -50,7 +59,10 @@ const Login = () => {
               register={register}
               error={formErrors.password?.message}
             />
-            <Button variant="info" type="submit" style={{ color: "white" }}>
+            <Button
+              type="submit"
+              style={{ color: "white", backgroundColor: "var(--light-blue)" }}
+            >
               {loading === "pending" ? (
                 <>
                   <Spinner animation="border" size="sm"></Spinner> Loading...
@@ -66,7 +78,7 @@ const Login = () => {
           </Form>
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };
 

@@ -7,25 +7,14 @@ import {
 
 const useWishlist = () => {
   const dispatch = useAppDispatch();
-  const { loading, error, productsFullInfo } = useAppSelector(
-    (state) => state.wishlist
-  );
-  const cartItems = useAppSelector((state) => state.cart.items);
+  const { loading, error, records } = useAppSelector((state) => state.wishlist);
 
   useEffect(() => {
-    const promise = dispatch(actGetWishlist("productsFullInfo"));
+    dispatch(actGetWishlist());
     return () => {
-      promise.abort();
       dispatch(cleanWishlistProductsFullInfo());
     };
   }, [dispatch]);
-
-  const records = productsFullInfo.map((el) => ({
-    ...el,
-    quantity: cartItems[el.id],
-    isLiked: true,
-    isAuthenticated: true,
-  }));
 
   return { records, loading, error };
 };

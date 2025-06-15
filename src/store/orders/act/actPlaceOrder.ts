@@ -7,24 +7,18 @@ const actPlaceOrder = createAsyncThunk(
     const { rejectWithValue, getState } = thunkAPI;
     const { cart, auth } = getState() as RootState;
 
-    const orderItems = cart.productsFullInfo.map((el) => ({
+    const orderItems = cart.products.map((el) => ({
       id: el.id,
-      title: el.title,
+      name: el.name,
+      imageUrls: el.imageUrls,
       price: el.price,
-      img: el.img,
       quantity: cart.items[el.id],
     }));
 
     try {
-      const res = await axios.post("/orders", {
-        userId: auth.user?.id,
-        items: orderItems,
-        subtotal,
-      });
-
-      return res.data;
+      // TODO: Implement order placement
     } catch (error) {
-      return rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(error);
     }
   }
 );

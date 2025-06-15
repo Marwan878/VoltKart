@@ -1,40 +1,38 @@
+import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { TProduct } from "@types";
-import { RootState } from "@store/index";
-
-type TDataType = "productsFullInfo" | "ProductIds";
-type TResponse = TProduct[];
 
 const actGetWishlist = createAsyncThunk(
   "wishlist/actGetWishlist",
-  async (dataType: TDataType, thunkAPI) => {
-    const { rejectWithValue, signal, getState } = thunkAPI;
-    const { auth } = getState() as RootState;
+  async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+
     try {
-      const userWishlist = await axios.get<{ productId: string }[]>(
-        `/wishlist?userId=${auth.user?.id}`,
-        { signal }
-      );
+      const { data: userData } = await supabase.auth.getUser();
+      const userId = userData.user?.id;
 
-      if (!userWishlist.data.length) {
-        return { data: [], dataType: "empty" };
+      if (!userId) {
+        return rejectWithValue("You must be logged in to view your wishlist");
       }
 
-      if (dataType === "ProductIds") {
-        const concatenatedItemsId = userWishlist.data.map((el) => el.productId);
-        return { data: concatenatedItemsId, dataType: "productsIds" };
-      } else {
-        const concatenatedItemsId = userWishlist.data
-          .map((el) => `id=${el.productId}`)
-          .join("&");
+      const { data, error } = await supabase
+        .from("wishlist_items")
+        .select(
+          `
+        *,
+        product:product_id (*)
+      `
+        )
+        .eq("user_id", userId);
 
-        const response = await axios.get<TResponse>(
-          `/products?${concatenatedItemsId}`
-        );
-        return { data: response.data, dataType: "ProductsFullInfo" };
+      console.log(data);
+
+      if (error) {
+        return rejectWithValue(error);
       }
+
+      return data.map((data) => data.product);
     } catch (error) {
-      return rejectWithValue(axiosErrorHandler(error));
+      return rejectWithValue(error);
     }
   }
 );

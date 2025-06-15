@@ -8,6 +8,7 @@ import {
 } from "./product.types";
 import { type TLoading, type TUniquePrimitive } from "./shared.types";
 import { type TToast } from "./toast.type";
+import { type TUser } from "./user.types";
 
 export {
   isString,
@@ -19,4 +20,5 @@ export {
   TToast,
   TProductOptionCombination,
   TUniquePrimitive,
+  TUser,
 };

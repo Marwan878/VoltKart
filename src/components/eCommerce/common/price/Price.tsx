@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 export default function Price({ price }: { readonly price: TPrice }) {
   return (
-    <div className={styles.price}>
+    <div>
       {price.currency}
       {price.discountPercent > 0
         ? price.discounted.toFixed(2)

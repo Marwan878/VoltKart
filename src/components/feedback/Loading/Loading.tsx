@@ -20,6 +20,8 @@ type LoadingProps = {
   error: null | string;
   children: React.ReactNode;
   type?: keyof typeof skeletonsTypes;
+  empty?: boolean;
+  message?: string;
 };
 
 const Loading = ({
@@ -27,6 +29,8 @@ const Loading = ({
   error,
   children,
   type = "category",
+  empty,
+  message,
 }: LoadingProps) => {
   const Component = skeletonsTypes[type];
 
@@ -40,6 +44,10 @@ const Loading = ({
       </div>
     );
   }
+  if (empty) {
+    return <LottieHandler type="empty" message={message} />;
+  }
+
   return <div>{children}</div>;
 };
 

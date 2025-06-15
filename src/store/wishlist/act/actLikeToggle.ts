@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const actLikeToggle = createAsyncThunk(
   "wishlist/actLikeToggle",
-  async (id: string, thunkAPI) => {
+  async (id: string | undefined, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
     } catch (error) {}

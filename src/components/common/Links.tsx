@@ -2,24 +2,27 @@ import { NAVIGATION_LINKS } from "@constants";
 import { useAppSelector } from "@store/hooks";
 import { CSSProperties } from "react";
 
+type LinksProps = {
+  containerClassName?: string;
+  linkClassName?: string;
+  linkStyle?: CSSProperties;
+};
+
 export default function Links({
   containerClassName,
   linkClassName,
   linkStyle,
-}: {
-  containerClassName?: string;
-  linkClassName?: string;
-  linkStyle?: CSSProperties;
-}) {
-  const { accessToken } = useAppSelector((state) => state.auth);
+}: Readonly<LinksProps>) {
+  const { user } = useAppSelector((state) => state.auth);
+
   return (
     <ul className={containerClassName}>
       {NAVIGATION_LINKS.map((link) => {
-        if (link.visibleFor === "logged_in" && !accessToken) {
+        if (link.visibleFor === "logged_in" && !user?.id) {
           return null;
         }
 
-        if (link.visibleFor === "logged_out" && accessToken) {
+        if (link.visibleFor === "logged_out" && user?.id) {
           return null;
         }
 

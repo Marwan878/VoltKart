@@ -1,7 +1,5 @@
-import { useAppDispatch } from "@store/hooks";
-import { actPlaceOrder } from "@store/orders/ordersSlice";
-import { useState } from "react";
 import { TProduct } from "@types";
+import { useState } from "react";
 import { Button, Modal, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
 
@@ -10,24 +8,21 @@ type CartSubtotalPriceProps = {
   userAccessToken: string | null;
 };
 
-const CartSubtotalPrice = ({
-  products,
-  userAccessToken,
-}: CartSubtotalPriceProps) => {
-  const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
+const CartSubtotalPrice = ({ userAccessToken }: CartSubtotalPriceProps) => {
+  // const dispatch = useAppDispatch();
+  const [loading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  const subtotal = products.reduce((accumulator, el) => {
-    const price = el.price.discounted;
-    const quantity = el.quantity;
-    if (quantity && typeof quantity === "number") {
-      return accumulator + price * quantity;
-    } else {
-      return accumulator;
-    }
-  }, 0);
+  // const subtotal = products.reduce((accumulator, el) => {
+  //   const price = el.price.discounted;
+  //   const quantity = el.quantity;
+  //   if (quantity && typeof quantity === "number") {
+  //     return accumulator + price * quantity;
+  //   } else {
+  //     return accumulator;
+  //   }
+  // }, 0);
 
   const modalHandler = () => {
     setShowModal(!showModal);
@@ -35,17 +30,17 @@ const CartSubtotalPrice = ({
   };
 
   const placeOrderHandler = () => {
-    setLoading(true);
-    dispatch(actPlaceOrder(subtotal))
-      .unwrap()
-      .then(() => {
-        dispatch(clearCartAfterPlaceOrder());
-        setShowModal(false);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => setLoading(false));
+    // setLoading(true);
+    // dispatch(actPlaceOrder(subtotal))
+    //   .unwrap()
+    //   .then(() => {
+    //     // dispatch(clearCart());
+    //     setShowModal(false);
+    //   })
+    //   .catch((error) => {
+    //     setError(error);
+    //   })
+    //   .finally(() => setLoading(false));
   };
 
   return (
@@ -56,7 +51,7 @@ const CartSubtotalPrice = ({
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to place order with Subtotal:{" "}
-          {subtotal.toFixed(2)} EGP
+          {/* {subtotal.toFixed(2)} */}
           {!loading && error && (
             <p style={{ color: "#DC3545", marginTop: "10px" }}>{error}</p>
           )}
@@ -83,7 +78,7 @@ const CartSubtotalPrice = ({
 
       <div className={styles.container}>
         <span>Subtotal:</span>
-        <span>{subtotal.toFixed(2)} EGP</span>
+        {/* <span>{subtotal.toFixed(2)} EGP</span> */}
       </div>
       {userAccessToken && (
         <div className={styles.container}>
