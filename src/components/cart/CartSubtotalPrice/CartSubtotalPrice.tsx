@@ -42,7 +42,7 @@ const CartSubtotalPrice = () => {
         currency={currency}
         loading={loading}
         error={error}
-        placeOrderHandler={() => dispatch(placeOrder(subtotal))}
+        placeOrderHandler={() => dispatch(placeOrder())}
       />
 
       <div className={styles.container}>
