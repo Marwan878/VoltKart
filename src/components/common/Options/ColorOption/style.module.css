@@ -1,0 +1,15 @@
+.quantity {
+  transition: background-color 0.1s ease;
+  display: inline-block;
+  border-radius: 99px;
+  padding: 0 0.35rem;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-inline-start: auto;
+}
+
+.color:hover .quantity,
+.quantity.selected {
+  color: white;
+  background-color: var(--light-blue);
+}

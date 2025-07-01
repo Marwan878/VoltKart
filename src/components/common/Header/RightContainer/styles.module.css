@@ -1,0 +1,13 @@
+.rightContainer {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+
+.rightContainer > a {
+  transition: ease color 300ms;
+}
+
+.rightContainer > a:hover {
+  color: var(--light-blue);
+}

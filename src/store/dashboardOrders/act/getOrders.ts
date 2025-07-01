@@ -1,0 +1,65 @@
+import { supabase } from "@lib/supabase";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { addToast } from "@store/toasts/toastsSlice";
+import { TOrderStatus } from "@types";
+
+export type GetOrdersPayload = {
+  pageIndex: number;
+  limit: number;
+  sortOrder: "asc" | "desc";
+  status: TOrderStatus | "";
+  orderId: string;
+};
+
+export const getOrders = createAsyncThunk(
+  "dashboardOrders/getOrders",
+  async (payload: GetOrdersPayload, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
+
+    try {
+      const query = supabase.from("orders").select("*");
+
+      // if orderId is provided, get the order by orderId and nothing else
+      if (payload.orderId) {
+        const uuidRegex =
+          /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+        if (!uuidRegex.test(payload.orderId)) {
+          return [];
+        }
+
+        query.eq("id", payload.orderId);
+      } else {
+        if (payload.status) {
+          query.eq("status", payload.status);
+        }
+        if (payload.sortOrder) {
+          query.order("created_at", { ascending: payload.sortOrder === "asc" });
+        }
+        if (payload.pageIndex && payload.limit) {
+          query.range(
+            payload.pageIndex * payload.limit,
+            (payload.pageIndex + 1) * payload.limit
+          );
+        }
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        addToast({
+          message: "Error fetching orders",
+          type: "danger",
+        })
+      );
+      return rejectWithValue(error);
+    }
+  }
+);

@@ -1,0 +1,26 @@
+/* Features 1 */
+.features1 {
+  margin: 0 auto var(--section-margin) auto;
+}
+
+.features1 li {
+  width: 18rem;
+}
+
+.features1 img {
+  aspect-ratio: 1;
+  width: 20%;
+  margin-inline-end: 1rem;
+}
+
+.features1 > li > div {
+  width: 80%;
+}
+
+/* Features 2 */
+
+.features2 {
+  margin-block-end: var(--section-margin);
+  padding-block: 2rem;
+  background-color: #f5f6f9;
+}

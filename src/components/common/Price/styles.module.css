@@ -1,0 +1,7 @@
+.originalPrice {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
+  margin-inline-start: 0.5rem;
+}

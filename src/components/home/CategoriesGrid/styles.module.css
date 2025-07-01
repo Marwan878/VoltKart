@@ -1,0 +1,83 @@
+.categories {
+  margin-bottom: var(--section-margin);
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  flex-basis: 50%;
+  gap: 1rem;
+}
+
+.bentoGrid > a {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  --bg-img: none;
+  aspect-ratio: 1;
+}
+
+.bentoGrid > a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-img);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.5s ease;
+  z-index: 0;
+}
+
+.bentoGrid > a:hover::before {
+  transform: scale(1.2);
+}
+
+.bentoGrid > a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.bentoGrid > a:hover::after {
+  opacity: 0.4;
+}
+
+.bentoGrid > a > span {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+@media (min-width: 768px) {
+  .bentoGrid > a > span {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bentoGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bentoGrid > a {
+    min-height: 14rem;
+  }
+
+  .bentoGrid > a:nth-child(1) {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .bentoGrid > a:nth-child(4) {
+    grid-column: span 2;
+    aspect-ratio: auto;
+  }
+}

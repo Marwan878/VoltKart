@@ -1,0 +1,20 @@
+.brands {
+  margin-block-end: var(--section-margin);
+}
+
+.brands img {
+  transition: 0.5s ease opacity;
+  width: 5.5rem;
+  height: 2rem;
+}
+
+.brands img:hover {
+  opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .brands img {
+    width: 11.875rem;
+    height: 4.375rem;
+  }
+}

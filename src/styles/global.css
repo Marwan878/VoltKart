@@ -1,0 +1,85 @@
+:root {
+  --light-blue: rgb(80, 142, 255);
+  --section-margin: 3rem;
+}
+
+p,
+a,
+button,
+div,
+span,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+table,
+thead,
+tbody,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  display: none;
+}
+
+button.slick-disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.notFound {
+  padding-top: 15%;
+  text-align: center;
+}
+
+.notFound h1 {
+  font-size: 130px;
+}
+.notFound p {
+  font-size: 50px;
+}
+
+.form-check-label {
+  width: 100%;
+}
+
+.form-check {
+  padding-left: unset;
+}
+
+.nav-link {
+  color: unset;
+}

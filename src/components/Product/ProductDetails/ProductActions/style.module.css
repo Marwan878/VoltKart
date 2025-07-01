@@ -1,0 +1,59 @@
+.actionsSection {
+  display: grid;
+  grid-template-areas:
+    "quantity quantity quantity"
+    "wishlist addToCart addToCart";
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.addToCartButton {
+  font-weight: 600;
+  font-size: 1rem;
+  grid-area: addToCart;
+}
+
+.addToCartButton:disabled {
+  background-color: #e0e0e0;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.wishlistButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+  grid-area: wishlist;
+}
+
+.wishlistButton:hover {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.wishlistButton.wishlisted {
+  border-color: #ff6b6b;
+  background-color: #fff5f5;
+  color: #ff6b6b;
+}
+
+@media (min-width: 768px) {
+  .actionsSection {
+    grid-template-areas: "wishlist quantity quantity addToCart addToCart";
+    grid-template-columns: auto repeat(5, 1fr);
+  }
+  .wishlistButton {
+    margin-inline-start: unset;
+  }
+}

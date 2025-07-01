@@ -1,0 +1,30 @@
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.sidebar {
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #22223b;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem 3rem;
+  background: #f8f9fa;
+}
+
+.navLink:hover {
+  background: rgba(13, 110, 253, 0.1);
+}

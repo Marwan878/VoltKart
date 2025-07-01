@@ -1,0 +1,21 @@
+.arrowContainer {
+  display: none !important;
+}
+
+@media (min-width: 1024px) {
+  .arrowContainer {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    border-radius: 50%;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .arrowContainer:hover:not(:global(.slick-disabled)) {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

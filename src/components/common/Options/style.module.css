@@ -1,0 +1,25 @@
+.checkbox {
+  transition: color 0.3s ease;
+}
+
+.checkbox:hover {
+  color: var(--light-blue);
+}
+
+.category:hover .quantity {
+  color: white;
+  background-color: var(--light-blue);
+}
+
+.categoryName {
+  transition: color 0.3s ease;
+}
+
+.category:hover .categoryName {
+  color: var(--light-blue);
+}
+
+:global(.nav-link.active) .categoryName {
+  font-weight: bold;
+  color: var(--light-blue);
+}

@@ -1,0 +1,193 @@
+.productCard {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  height: 100%;
+
+  border: 1px solid #e0e0e0;
+}
+
+.productCard:hover {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 11.25rem;
+  overflow: hidden;
+  background: #f8f9fa;
+  flex-shrink: 0;
+  margin: 0 auto 0.5rem auto;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.05);
+}
+
+.newBadge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: #000;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  z-index: 2;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-inline: 0.5rem;
+}
+
+.categories {
+  font-size: 0.7rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.03125rem;
+  margin-bottom: 0.375rem;
+  font-weight: 500;
+}
+
+.productName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 0.375rem 0;
+  line-height: 1.4;
+}
+
+.productName:hover {
+  color: var(--light-blue);
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+  flex-grow: 1;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.optionGroup {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.optionLabel {
+  font-size: 0.75rem;
+  color: #333;
+  font-weight: 500;
+  margin-right: 0.375rem;
+}
+
+.options {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .imageContainer {
+    width: 12.5rem;
+    height: auto;
+    min-height: 12.5rem;
+  }
+
+  .productInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .categories {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .productName {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+  }
+
+  .optionGroup {
+    margin-bottom: 0.75rem;
+  }
+
+  .optionLabel {
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+  }
+
+  .options {
+    gap: 0.5rem;
+  }
+
+  .newBadge {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .productCard {
+    flex-direction: row;
+    align-items: center;
+    padding-inline-end: 1rem;
+  }
+
+  .imageContainer {
+    width: 13.75rem;
+    min-height: 13.75rem;
+    align-self: stretch;
+    margin: unset;
+    margin-inline-end: 0.5rem;
+  }
+
+  .productInfo {
+    margin-inline: 0.6rem;
+  }
+
+  .productName {
+    font-size: 1.125rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .imageContainer {
+    width: 16.25rem;
+    min-height: 17.5rem;
+  }
+}

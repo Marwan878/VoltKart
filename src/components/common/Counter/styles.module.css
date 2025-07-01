@@ -1,0 +1,53 @@
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  grid-area: quantity;
+}
+
+.quantityButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.plusButton {
+  margin-inline-start: auto;
+  border-inline-start: 1px solid #e0e0e0;
+}
+
+.minusButton {
+  margin-inline-end: auto;
+  border-inline-end: 1px solid #e0e0e0;
+}
+
+.quantityButton:hover:not(:disabled),
+.quantityButton:active:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+.quantityButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding-inline: 2rem;
+  height: 2.5rem;
+  font-weight: 600;
+  background: white;
+}

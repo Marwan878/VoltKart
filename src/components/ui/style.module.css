@@ -1,0 +1,69 @@
+/* Button */
+
+.whiteToBlue,
+.whiteToBlack,
+.whiteToAqua {
+  background-color: white;
+  color: black;
+}
+
+.whiteToBlue:hover {
+  background-color: var(--light-blue);
+  color: white;
+}
+
+.whiteToBlack:hover {
+  color: white;
+  background-color: black;
+}
+
+.whiteToAqua:hover {
+  background-color: #00d2d4;
+}
+
+.blueToBlack {
+  background-color: var(--light-blue);
+  color: white;
+}
+
+.blueToBlack:hover {
+  background-color: black;
+}
+
+.blackToBlue,
+.blackToWhite {
+  background-color: black;
+  color: white;
+}
+
+.blackToBlue:hover {
+  background-color: var(--light-blue);
+}
+
+.blackToWhite:hover {
+  background-color: white;
+  color: black;
+}
+
+.aquaToWhite {
+  background-color: #00d2d4;
+  color: black;
+}
+
+.aquaToWhite:hover {
+  background-color: white;
+}
+
+/* Logo */
+
+.logo {
+  display: block;
+  height: 4rem;
+  width: 4rem;
+}
+
+.logo > img {
+  object-fit: cover;
+  height: 100%;
+  border-radius: 8px;
+}
