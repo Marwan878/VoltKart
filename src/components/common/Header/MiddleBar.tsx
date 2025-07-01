@@ -15,7 +15,7 @@ export default function MiddleBar({
 }: Readonly<MiddleBarProps>) {
   return (
     <nav className="container py-2 d-flex justify-content-between align-items-center">
-      <Logo theme="dark" />
+      <Logo />
       <Sidebar open={sidebarOpen} onClose={onSidebarClose} />
       {sidebarOpen && <Overlay />}
       <RightContainer onSidebarOpen={onSidebarOpen} />

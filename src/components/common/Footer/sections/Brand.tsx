@@ -7,8 +7,7 @@ export default function Brand() {
   return (
     <Stack gap={2}>
       <Stack direction="horizontal" gap={3}>
-        <Logo theme="light" />
-        <h1 className="fs-3">VoltKart</h1>
+        <Logo />
       </Stack>
       <p className="fw-bold fs-5" style={{ color: "#beffef" }}>
         Your{" "}

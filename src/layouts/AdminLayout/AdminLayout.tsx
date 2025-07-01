@@ -13,7 +13,7 @@ const AdminLayout = () => {
     <div className={styles.adminLayout}>
       <aside className={styles.sidebar}>
         <div className="d-flex align-items-center gap-2">
-          <Logo theme="dark" />
+          <Logo />
           <h1 className={styles.brand}>Admin Panel</h1>
         </div>
         <Nav className="flex-column" variant="pills">

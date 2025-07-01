@@ -1,18 +1,10 @@
 import { Link } from "react-router-dom";
 import style from "./style.module.css";
 
-export default function Logo({
-  theme = "light",
-}: {
-  readonly theme?: "light" | "dark";
-}) {
+export default function Logo() {
   return (
     <Link to="/" className={style.logo}>
-      <img
-        src={theme === "dark" ? "/brand.png" : "/brand-light.png"}
-        alt=""
-        className=""
-      />
+      <img src="/brand.png" alt="VoltKart logo." className="" />
     </Link>
   );
 }
