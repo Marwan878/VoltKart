@@ -21,7 +21,7 @@ const ProtectedAdminRoute = ({ children }: { children: ReactNode }) => {
         return;
       }
 
-      if (user?.role !== "admin") {
+      if (user?.user_metadata.role !== "admin") {
         navigate("/");
       }
     };
