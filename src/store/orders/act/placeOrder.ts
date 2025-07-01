@@ -1,32 +1,32 @@
 import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const placeOrder = createAsyncThunk(
+export const placeOrder = createAsyncThunk(
   "orders/placeOrder",
-  async (subtotal: number, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-
+  async (subtotal: number, { rejectWithValue }) => {
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const userId = userData.user?.id;
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) throw new Error("You must be logged in to place an order");
 
-      if (!userId) {
-        throw new Error("You must be logged in to place an order");
-      }
-
-      const res = await fetch(
-        "https://hztavlzsfgsmofrmdqex.functions.supabase.co/create-checkout-session",
+      const { data, error } = await supabase.functions.invoke(
+        "create-checkout-session",
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: subtotal * 100 }),
+          body: {
+            amount: subtotal * 100,
+            customerId: session.user.id,
+          },
         }
       );
 
-      const data = await res.json();
-      window.location.href = data.url;
-    } catch (error) {
-      return rejectWithValue(error);
+      if (error) throw error;
+
+      window.location.replace(data.url);
+    } catch (error: unknown) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Unknown error"
+      );
     }
   }
 );
