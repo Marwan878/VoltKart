@@ -23,7 +23,6 @@ const actGetCategoriesProductsCount = createAsyncThunk(
 
       return categoryCounts;
     } catch (error) {
-      console.log(error);
       rejectWithValue(error);
       return {};
     }

@@ -16,16 +16,15 @@ export const placeOrder = createAsyncThunk(
     let subtotal = 0;
 
     products.forEach(async (product) => {
-      const {
-        data: { optionCombinations },
-        error,
-      } = (await supabase
+      const { data: optionCombinations, error } = (await supabase
         .from("products")
         .select("optionCombinations")
         .eq("id", product.product_id)) as unknown as {
-        data: { optionCombinations: TProductOptionCombination[] };
+        data: TProductOptionCombination[] | null;
         error: PostgrestError | null;
       };
+
+      if (!optionCombinations) throw new Error("Product not found");
 
       if (error) throw new Error(error.message);
 

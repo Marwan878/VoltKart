@@ -111,8 +111,6 @@ const useProducts = () => {
     });
   }, [searchParams, products]);
 
-  console.log(filteredProducts);
-
   const sortedAndFilteredProducts = useMemo(() => {
     const sorted = [...filteredProducts];
     switch (sortBy) {

@@ -27,8 +27,6 @@ const PasswordChangeForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  console.log(errors);
-
   useEffect(() => {
     const checkUser = async () => {
       const {
