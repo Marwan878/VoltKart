@@ -18,7 +18,7 @@ export default function CartSubtotalModal({
   loading,
   error,
   placeOrderHandler,
-}: CartSubtotalModalProps) {
+}: Readonly<CartSubtotalModalProps>) {
   if (!showModal) return null;
 
   return (

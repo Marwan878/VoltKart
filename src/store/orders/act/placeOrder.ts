@@ -1,9 +1,56 @@
 import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "@store/index";
+import { addToast } from "@store/toasts/toastsSlice";
+import { PostgrestError } from "@supabase/supabase-js";
+
+import { TProductOptionCombination } from "@types";
 
 export const placeOrder = createAsyncThunk(
   "orders/placeOrder",
-  async (subtotal: number, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    const {
+      cart: { products },
+    } = getState() as RootState;
+
+    let subtotal = 0;
+
+    products.forEach(async (product) => {
+      const {
+        data: { optionCombinations },
+        error,
+      } = (await supabase
+        .from("products")
+        .select("optionCombinations")
+        .eq("id", product.product_id)) as unknown as {
+        data: { optionCombinations: TProductOptionCombination[] };
+        error: PostgrestError | null;
+      };
+
+      if (error) throw new Error(error.message);
+
+      const currentCombination = optionCombinations.find(
+        (comination) => comination.sku === product.sku
+      );
+
+      if (!currentCombination) throw new Error("Product not found");
+
+      if (currentCombination.stock < product.quantity) {
+        throw new Error(
+          `Not enough stock, please reduce the quantity of ${product.product.name} to ${currentCombination.stock}`
+        );
+      }
+
+      subtotal += product.quantity * currentCombination.price.discounted;
+
+      currentCombination.stock -= product.quantity;
+
+      await supabase
+        .from("products")
+        .update({ optionCombinations })
+        .eq("id", product.product_id);
+    });
+
     try {
       const {
         data: { session },
@@ -24,6 +71,16 @@ export const placeOrder = createAsyncThunk(
 
       window.location.replace(data.url);
     } catch (error: unknown) {
+      console.error(error);
+
+      dispatch(
+        addToast({
+          title: "Error",
+          message: error instanceof Error ? error.message : "Unknown error",
+          type: "danger",
+        })
+      );
+
       return rejectWithValue(
         error instanceof Error ? error.message : "Unknown error"
       );
