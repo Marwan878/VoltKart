@@ -45,10 +45,12 @@ export const placeOrder = createAsyncThunk(
 
       currentCombination.stock -= product.quantity;
 
-      await supabase
+      const { error: updateError } = await supabase
         .from("products")
         .update({ optionCombinations })
         .eq("id", product.product_id);
+
+      if (updateError) throw new Error(updateError.message);
     });
 
     try {
