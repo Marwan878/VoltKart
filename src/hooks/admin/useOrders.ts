@@ -9,23 +9,19 @@ import {
   setStatusFilter,
 } from "@store/dashboardOrders/dashboardOrdersSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { addToast } from "@store/toasts/toastsSlice";
 import { useCallback, useEffect } from "react";
 
 import { TOrderStatus } from "@types";
-import { addToast } from "@store/toasts/toastsSlice";
 
 export default function useOrders() {
   const dispatch = useAppDispatch();
   const {
-    orders,
-    loading,
-    error,
     currentPageIndex,
     itemsPerPage,
     searchOrderId,
     statusFilter,
     sortOrder,
-    totalOrders,
   } = useAppSelector((state) => state.dashboardOrders);
 
   const fetchOrders = useCallback(() => {
@@ -73,21 +69,12 @@ export default function useOrders() {
 
   return {
     setCurrentPage: (newPage: number) => dispatch(setCurrentPage(newPage)),
-    currentPageIndex,
-    totalOrders,
-    itemsPerPage,
-    orders,
     handleStatusChange,
-    loading,
-    error,
     search: handleSearch,
-    searchOrderId,
     setSearchOrderId: (newSearchOrderId: string) =>
       dispatch(setSearchOrderId(newSearchOrderId)),
-    statusFilter,
     setStatusFilter: (newStatusFilter: TOrderStatus | "") =>
       dispatch(setStatusFilter(newStatusFilter)),
-    sortOrder,
     setSortOrder: (newSortOrder: "asc" | "desc") =>
       dispatch(setSortOrder(newSortOrder)),
     setItemsPerPage: (newItemsPerPage: number) =>

@@ -1,8 +1,8 @@
 import { Spinner } from "react-bootstrap";
-import { useOrders } from "./Orders";
+import { useAppSelector } from "@store/hooks";
 
 export default function LoadingIndicator() {
-  const { loading } = useOrders();
+  const { loading } = useAppSelector((state) => state.dashboardOrders);
 
   if (!loading) return null;
 

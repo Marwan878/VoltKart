@@ -73,45 +73,30 @@ const PasswordChangeForm = () => {
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit(onSubmit)} className="my-5">
-        <Heading title="Password Change" />
-        {/* <AvailabilityCheckInput
-          setError={setError}
-          formErrors={errors}
-          getIsAvailable={getIsAvailable}
-          type="password"
-          config={PASSWORD_AVAILABILITY_CONFIG}
-          {...register("currentPassword")}
-          error={errors.currentPassword?.message}
-          label="Current Password"
-        /> */}
-        <Input
-          label="Current Password"
-          type="password"
-          {...register("currentPassword")}
-          error={errors.currentPassword?.message}
-        />
-        <Input
-          label="New Password"
-          type="password"
-          {...register("newPassword")}
-          error={errors.newPassword?.message}
-        />
-        <Input
-          label="Confirm New Password"
-          type="password"
-          {...register("confirmNewPassword")}
-          error={errors.confirmNewPassword?.message}
-        />
-        <Button
-          type="submit"
-          disabled={!isValid || isSubmitting || isValidating}
-        >
-          {isSubmitting ? "Saving..." : "Save changes"}
-        </Button>
-      </Form>
-    </>
+    <Form onSubmit={handleSubmit(onSubmit)} className="my-5">
+      <Heading title="Password Change" />
+      <Input
+        label="Current Password"
+        type="password"
+        {...register("currentPassword")}
+        error={errors.currentPassword?.message}
+      />
+      <Input
+        label="New Password"
+        type="password"
+        {...register("newPassword")}
+        error={errors.newPassword?.message}
+      />
+      <Input
+        label="Confirm New Password"
+        type="password"
+        {...register("confirmNewPassword")}
+        error={errors.confirmNewPassword?.message}
+      />
+      <Button type="submit" disabled={!isValid || isSubmitting || isValidating}>
+        {isSubmitting ? "Saving..." : "Save changes"}
+      </Button>
+    </Form>
   );
 };
 

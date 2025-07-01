@@ -1,10 +1,18 @@
+import { useAppSelector } from "@store/hooks";
 import { Col, Form } from "react-bootstrap";
-import { useOrders } from "../Orders";
 
 const ITEMS_PER_PAGE_OPTIONS = [5, 10, 25, 50];
 
-export default function ItemsPerPageFilter() {
-  const { itemsPerPage, setItemsPerPage } = useOrders();
+type ItemsPerPageFilterProps = {
+  setItemsPerPage: (items: number) => void;
+};
+
+export default function ItemsPerPageFilter({
+  setItemsPerPage,
+}: Readonly<ItemsPerPageFilterProps>) {
+  const itemsPerPage = useAppSelector(
+    (state) => state.dashboardOrders.itemsPerPage
+  );
 
   return (
     <Col md={2}>

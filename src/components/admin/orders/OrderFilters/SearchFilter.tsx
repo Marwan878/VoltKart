@@ -1,9 +1,17 @@
+import { useAppSelector } from "@store/hooks";
 import { Search } from "lucide-react";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
-import { useOrders } from "../Orders";
 
-export default function SearchFilter() {
-  const { searchOrderId, setSearchOrderId, search } = useOrders();
+type SearchFilterProps = {
+  search: () => void;
+  setSearchOrderId: (id: string) => void;
+};
+
+export default function SearchFilter({
+  search,
+  setSearchOrderId,
+}: Readonly<SearchFilterProps>) {
+  const { searchOrderId } = useAppSelector((state) => state.dashboardOrders);
 
   return (
     <Col md={4}>

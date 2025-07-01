@@ -75,7 +75,6 @@ export const addNewProduct = createAsyncThunk(
         })),
         description: data.description,
         brand: data.brand,
-        rating: 0,
       };
       const { error } = await supabase.from("products").insert(newProduct);
 

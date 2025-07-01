@@ -1,25 +1,51 @@
-import { OrdersProvider } from "@components/admin/orders/Orders";
+import {
+  ErrorMessage,
+  LoadingIndicator,
+  OrdersEmptyTableContent,
+  OrdersFilters,
+  OrdersHeader,
+  OrdersPagination,
+  OrdersTableBodyContent,
+  OrdersTableContainer,
+} from "@components/admin/orders";
 import useOrders from "@hooks/admin/useOrders";
 
 const Orders = () => {
-  const ordersData = useOrders();
+  const {
+    setCurrentPage,
+    handleStatusChange,
+    search,
+    setSearchOrderId,
+    setStatusFilter,
+    setSortOrder,
+    setItemsPerPage,
+    clearFilters,
+    refreshOrders,
+  } = useOrders();
 
   return (
-    <OrdersProvider {...ordersData}>
-      <OrdersProvider.Header />
+    <>
+      <OrdersHeader />
+      <OrdersFilters
+        search={search}
+        setSearchOrderId={setSearchOrderId}
+        setStatusFilter={setStatusFilter}
+        setSortOrder={setSortOrder}
+        setItemsPerPage={setItemsPerPage}
+        refreshOrders={refreshOrders}
+        clearFilters={clearFilters}
+      />
 
-      <OrdersProvider.OrdersFilters />
+      <ErrorMessage />
+      <LoadingIndicator />
 
-      <OrdersProvider.ErrorMessage />
-      <OrdersProvider.LoadingIndicator />
+      <OrdersTableContainer>
+        <OrdersTableBodyContent handleStatusChange={handleStatusChange} />
+        <OrdersEmptyTableContent />
+      </OrdersTableContainer>
 
-      <OrdersProvider.TableContainer>
-        <OrdersProvider.TableBodyContent />
-        <OrdersProvider.EmptyTableContent />
-      </OrdersProvider.TableContainer>
-
-      <OrdersProvider.OrdersPagination />
-    </OrdersProvider>
+      <OrdersPagination setCurrentPage={setCurrentPage} />
+    </>
   );
 };
 

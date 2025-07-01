@@ -38,12 +38,14 @@ export default function PriceFilter({ products }: Readonly<PriceFilterProps>) {
         min={cheapestProductPrice}
         max={mostExpensiveProductPrice}
         value={range}
-        onChange={(range: [number, number]) =>
+        onChange={(range) => {
+          if (!Array.isArray(range)) return;
+
           setSearchParams({
             ...Object.fromEntries(searchParams.entries()),
             priceRange: `${range[0]}-${range[1]}`,
-          })
-        }
+          });
+        }}
         trackStyle={[{ backgroundColor: "#0d6efd", height: 6 }]}
         handleStyle={[
           { borderColor: "#0d6efd", backgroundColor: "#0d6efd" },

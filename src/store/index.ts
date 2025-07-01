@@ -12,7 +12,6 @@ import {
 import storage from "redux-persist/lib/storage";
 import auth from "./auth/authSlice";
 import cart from "./cart/cartSlice";
-import deals from "./deals/dealsSlice";
 import orders from "./orders/ordersSlice";
 import products from "./products/productsSlice";
 import toasts from "./toasts/toastsSlice";
@@ -52,7 +51,6 @@ const rootReducer = combineReducers({
   toasts,
   cart: persistReducer(cartPersistConfig, cart),
   wishlist: persistReducer(wishlistPersistConfig, wishlist),
-  deals,
   dashboardOrders,
   metrics,
   inventory,

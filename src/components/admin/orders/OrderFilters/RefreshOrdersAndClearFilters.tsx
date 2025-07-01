@@ -1,10 +1,15 @@
 import { RefreshCw } from "lucide-react";
 import { Button, Col } from "react-bootstrap";
-import { useOrders } from "../Orders";
 
-export default function RefreshOrdersAndClearFilters() {
-  const { refreshOrders, clearFilters } = useOrders();
+type RefreshOrdersAndClearFiltersProps = {
+  refreshOrders: () => void;
+  clearFilters: () => void;
+};
 
+export default function RefreshOrdersAndClearFilters({
+  refreshOrders,
+  clearFilters,
+}: Readonly<RefreshOrdersAndClearFiltersProps>) {
   return (
     <Col md={2}>
       <div className="d-flex gap-2">

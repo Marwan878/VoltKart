@@ -1,8 +1,8 @@
+import { useAppSelector } from "@store/hooks";
 import { Alert } from "react-bootstrap";
-import { useOrders } from "./Orders";
 
 export default function ErrorMessage() {
-  const { error } = useOrders();
+  const { error } = useAppSelector((state) => state.dashboardOrders);
 
   if (!error) return null;
 

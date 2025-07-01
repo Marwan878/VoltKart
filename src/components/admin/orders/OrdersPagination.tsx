@@ -1,9 +1,16 @@
+import { useAppSelector } from "@store/hooks";
 import { Col, Pagination, Row } from "react-bootstrap";
-import { useOrders } from "./Orders";
 
-const OrdersPagination = () => {
-  const { currentPageIndex, itemsPerPage, totalOrders, setCurrentPage } =
-    useOrders();
+type OrdersPaginationProps = {
+  setCurrentPage: (page: number) => void;
+};
+
+const OrdersPagination = ({
+  setCurrentPage,
+}: Readonly<OrdersPaginationProps>) => {
+  const { currentPageIndex, itemsPerPage, totalOrders } = useAppSelector(
+    (state) => state.dashboardOrders
+  );
 
   const totalPages = Math.ceil(totalOrders / itemsPerPage);
   const startItem = currentPageIndex * itemsPerPage + 1;

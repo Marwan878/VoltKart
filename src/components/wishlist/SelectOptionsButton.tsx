@@ -1,6 +1,5 @@
 import { ShoppingCart } from "lucide-react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 type SelectOptionsButtonProps = {
   productId: string;
@@ -14,10 +13,10 @@ export default function SelectOptionsButton({
   return (
     <Button
       className={`bg-black border-0 fw-bold ${className}`}
-      to={`/product/${productId}`}
-      as={Link}
+      href={`/product/${productId}`}
+      as={"a"}
     >
-      <ShoppingCart className="me-2" />
+      <ShoppingCart className="me-2" aria-hidden />
       Select options
     </Button>
   );

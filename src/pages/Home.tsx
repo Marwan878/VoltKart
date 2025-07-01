@@ -6,12 +6,10 @@ import {
   Hero,
   ScrollToTop,
 } from "@components/home";
-import Seed from "@components/Seed";
 
 const Home = () => {
   return (
     <>
-      {/* <Seed /> */}
       <Hero />
       <CategoriesGrid />
       <Features1 />

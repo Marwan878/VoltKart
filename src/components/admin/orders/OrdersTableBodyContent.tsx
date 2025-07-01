@@ -1,7 +1,7 @@
 import { ORDER_STATUSES } from "@constants";
+import { useAppSelector } from "@store/hooks";
 import { formatDate } from "@utils";
 import { Badge, Dropdown } from "react-bootstrap";
-import { useOrders } from "./Orders";
 
 import { TOrderStatus } from "@types";
 
@@ -12,8 +12,14 @@ const statusToVariant: Record<TOrderStatus, string> = {
   cancelled: "danger",
 } as const;
 
-export default function OrdersTableBodyContent() {
-  const { orders, handleStatusChange } = useOrders();
+type OrdersTableBodyContentProps = {
+  handleStatusChange: (orderId: string, status: TOrderStatus) => void;
+};
+
+export default function OrdersTableBodyContent({
+  handleStatusChange,
+}: Readonly<OrdersTableBodyContentProps>) {
+  const orders = useAppSelector((state) => state.dashboardOrders.orders);
 
   return orders.map((order) => (
     <tr key={order.id}>

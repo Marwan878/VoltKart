@@ -1,8 +1,14 @@
+import { useAppSelector } from "@store/hooks";
 import { Col, Form } from "react-bootstrap";
-import { useOrders } from "../Orders";
 
-export default function SortOrdersFilter() {
-  const { sortOrder, setSortOrder } = useOrders();
+type SortOrdersFilterProps = {
+  setSortOrder: (order: "asc" | "desc") => void;
+};
+
+export default function SortOrdersFilter({
+  setSortOrder,
+}: Readonly<SortOrdersFilterProps>) {
+  const sortOrder = useAppSelector((state) => state.dashboardOrders.sortOrder);
 
   return (
     <Col md={2}>

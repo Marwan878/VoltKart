@@ -1,11 +1,19 @@
 import { ORDER_STATUSES } from "@constants";
+import { useAppSelector } from "@store/hooks";
 import { Col, Form } from "react-bootstrap";
-import { useOrders } from "../Orders";
 
 import { TOrderStatus } from "@types";
 
-export default function StatusFilter() {
-  const { statusFilter, setStatusFilter } = useOrders();
+type StatusFilterProps = {
+  setStatusFilter: (status: TOrderStatus | "") => void;
+};
+
+export default function StatusFilter({
+  setStatusFilter,
+}: Readonly<StatusFilterProps>) {
+  const statusFilter = useAppSelector(
+    (state) => state.dashboardOrders.statusFilter
+  );
 
   return (
     <Col md={2}>
