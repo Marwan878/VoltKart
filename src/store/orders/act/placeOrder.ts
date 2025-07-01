@@ -20,7 +20,8 @@ export const placeOrder = createAsyncThunk(
       if (!session) throw new Error("You must be logged in to place an order");
 
       let subtotal = 0;
-      products.forEach(async (product) => {
+
+      for (const product of products) {
         const {
           data: { optionCombinations },
           error,
@@ -60,7 +61,7 @@ export const placeOrder = createAsyncThunk(
           .eq("id", product.product_id);
 
         if (updateError) throw new Error(updateError.message);
-      });
+      }
 
       const { data, error } = await supabase.functions.invoke(
         "create-checkout-session",
@@ -68,6 +69,7 @@ export const placeOrder = createAsyncThunk(
           body: {
             amount: subtotal * 100,
             customerId: session.user.id,
+            currency: products[0].product.optionCombinations[0].price.currency,
           },
         }
       );
