@@ -33,7 +33,7 @@ const cartSlice = createSlice({
     addToLocalCart: (state, action: PayloadAction<IAddToLocalCartPayload>) => {
       const { product, sku, quantity } = action.payload;
 
-      const { maxOrderQuantity = Infinity, optionCombinations } = product;
+      const { maxOrderQuantity, optionCombinations } = product;
       const stock = optionCombinations.find((el) => el.sku === sku)?.stock ?? 0;
 
       if (quantity <= 0) {
@@ -41,7 +41,7 @@ const cartSlice = createSlice({
         return;
       }
 
-      if (quantity > maxOrderQuantity) {
+      if (quantity > (maxOrderQuantity ?? Infinity)) {
         console.error("Attempted to add more items than max order quantity.");
         return;
       }
