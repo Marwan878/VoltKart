@@ -29,7 +29,7 @@ td {
 
 a {
   color: initial;
-  text-decoration: none;
+  text-decoration: unset;
 }
 
 button {

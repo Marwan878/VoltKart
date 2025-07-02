@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 
 export default function Features2() {
   return (
-    <div className={styles.features2}>
+    <div className={styles.features}>
       <Container>
         <Row>
           {FEATURES2.map((feature) => (

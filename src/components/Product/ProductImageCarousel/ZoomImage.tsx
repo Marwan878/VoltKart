@@ -15,6 +15,7 @@ const ZoomImage: FC<ZoomImageProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [backgroundPosition, setBackgroundPosition] = useState("center");
+  const [isZoomed, setIsZoomed] = useState(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const { left, top, width, height } =
@@ -24,15 +25,21 @@ const ZoomImage: FC<ZoomImageProps> = ({
     setBackgroundPosition(`${x}% ${y}%`);
   };
 
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+    setBackgroundPosition("center");
+  };
+
   return (
     <div
       className={className}
       ref={containerRef}
+      onMouseEnter={() => setIsZoomed(true)}
       onMouseMove={handleMouseMove}
-      onMouseLeave={() => setBackgroundPosition("center")}
+      onMouseLeave={handleMouseLeave}
       style={{
         backgroundImage: `url(${src})`,
-        backgroundSize: `${zoomScale * 100}%`,
+        backgroundSize: isZoomed ? `${zoomScale * 100}%` : "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition,
         cursor: "zoom-in",

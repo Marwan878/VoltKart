@@ -13,11 +13,11 @@ const getMetrics = createAsyncThunk(
     let startDate;
     switch (filter) {
       case "Day":
-        // Start of the day
-        startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        // In the last 24 hours
+        startDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
         break;
       case "Week":
-        // 7 days ago
+        // In the last 7 days
         startDate = new Date(
           now.getFullYear(),
           now.getMonth(),
@@ -25,12 +25,12 @@ const getMetrics = createAsyncThunk(
         );
         break;
       case "Month":
-        // Start of the month
-        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        // In the last 30 days
+        startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         break;
       case "Year":
-        // Start of the year
-        startDate = new Date(now.getFullYear(), 0, 1);
+        // In the last 365 days
+        startDate = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
         break;
       default:
         throw new Error("Invalid filter");
@@ -159,7 +159,8 @@ const getCompletedOrders = async (startDate: string): Promise<TOrderItem[]> => {
     .from("orders")
     .select("*")
     .eq("status", "delivered" as TOrderStatus)
-    .gte("created_at", startDate);
+    .gte("created_at", startDate)
+    .order("created_at", { ascending: true });
 
   if (error) {
     console.error(error);

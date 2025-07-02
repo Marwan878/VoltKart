@@ -1,8 +1,7 @@
 import {
   BrandsAndPartners,
   CategoriesGrid,
-  Features1,
-  Features2,
+  Features,
   Hero,
   ScrollToTop,
 } from "@components/home";
@@ -12,8 +11,7 @@ const Home = () => {
     <>
       <Hero />
       <CategoriesGrid />
-      <Features1 />
-      <Features2 />
+      <Features />
       <BrandsAndPartners />
       <ScrollToTop />
     </>

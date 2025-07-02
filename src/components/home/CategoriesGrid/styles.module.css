@@ -1,5 +1,6 @@
 .categories {
   margin-bottom: var(--section-margin);
+  flex-direction: column;
 }
 
 .bentoGrid {
@@ -79,5 +80,11 @@
   .bentoGrid > a:nth-child(4) {
     grid-column: span 2;
     aspect-ratio: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .categories {
+    flex-direction: row;
   }
 }

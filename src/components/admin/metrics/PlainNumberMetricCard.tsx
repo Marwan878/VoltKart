@@ -12,7 +12,9 @@ export default function PlainNumberMetricCard({
   return (
     <div className={`${styles.metricCard}`} style={{ flexGrow: 1 }}>
       <div>{title}</div>
-      <div style={{ fontSize: "2rem", fontWeight: "bold" }}>{value}</div>
+      <div style={{ fontSize: "2rem", fontWeight: "bold" }}>
+        {value.toLocaleString()}
+      </div>
     </div>
   );
 }

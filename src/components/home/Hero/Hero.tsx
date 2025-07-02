@@ -2,6 +2,7 @@ import { Button, RevealOnScroll } from "@components/ui";
 import { HERO_IMAGES, SCREEN_TO_BREAKPOINT } from "@constants";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import styles from "./styles.module.css";
 
@@ -84,13 +85,20 @@ export default function Hero() {
             </p>
           </RevealOnScroll>
           <RevealOnScroll>
-            <Button
+            <Button<"a">
               variant="blueToBlack"
-              className="fw-bold me-3 px-md-5 py-md-3"
+              className="fw-bold me-3 px-md-5 py-md-3 d-inline-block"
+              href="#categories"
+              as={"a"}
             >
               Shop Now
             </Button>
-            <Button variant="blackToBlue" className="fw-bold px-md-5 py-md-3">
+            <Button<typeof Link>
+              variant="blackToBlue"
+              className="fw-bold px-md-5 py-md-3 d-inline-block"
+              to="/products/smart-home-solutions"
+              as={Link}
+            >
               More Info
             </Button>
           </RevealOnScroll>

@@ -1,33 +1,37 @@
 import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
 import { useAppSelector } from "@store/hooks";
-import { Heart, Menu, ShoppingCart, User2 } from "lucide-react";
+import { Heart, LogIn, ShoppingCart, User2, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import HeaderCounter from "../HeaderCounter/HeaderCounter";
 
 import styles from "./styles.module.css";
+import { useEffect, useState } from "react";
+import { supabase } from "@lib/supabase";
 
-type RightContainerProps = {
-  onSidebarOpen: () => void;
-};
-
-export default function RightContainer({
-  onSidebarOpen,
-}: Readonly<RightContainerProps>) {
+export default function RightContainer() {
   const wishlistTotalQuantity = useAppSelector(
     (state) => state.wishlist.productIds.length
   );
   const cartTotalQuantity = useAppSelector(getCartTotalQuantitySelector);
-  const { accessToken } = useAppSelector((state) => state.auth);
+  const [session, setSession] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { data, error } = await supabase.auth.getUser();
+
+      if (error) {
+        console.error(error);
+      }
+
+      setSession(!!data.user);
+    })();
+  }, []);
 
   return (
     <div className={styles.rightContainer}>
-      {accessToken && (
+      {session ? (
         <>
-          <Link
-            to="/account"
-            aria-label="Your account."
-            className="d-none d-md-inline"
-          >
+          <Link to="/account" aria-label="Your account." className="">
             <User2 aria-hidden />
           </Link>
           <Link to="/wishlist" aria-label="Your wishlist.">
@@ -45,15 +49,18 @@ export default function RightContainer({
             />
           </Link>
         </>
+      ) : (
+        <div className="d-flex gap-4">
+          <Link to="/login" className="d-flex gap-2">
+            <LogIn aria-hidden />
+            <span className="">Log in</span>
+          </Link>
+          <Link to="/register" className="d-flex gap-2">
+            <UserPlus aria-hidden />
+            <span className="d-none d-lg-inline">Register</span>
+          </Link>
+        </div>
       )}
-
-      <button
-        className="d-md-none"
-        onClick={onSidebarOpen}
-        aria-label="Open sidebar."
-      >
-        <Menu aria-hidden />
-      </button>
     </div>
   );
 }

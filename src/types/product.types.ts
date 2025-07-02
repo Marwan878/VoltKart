@@ -1,7 +1,9 @@
+import { CATEGORIES } from "@constants";
+
 export type TProduct = {
   id: string;
   name: string;
-  categoryId: string;
+  categoryId: (typeof CATEGORIES)[number]["id"];
   images: {
     main: string;
     hover: string;

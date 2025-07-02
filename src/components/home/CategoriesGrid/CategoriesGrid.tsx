@@ -12,7 +12,7 @@ export default function CategoriesGrid() {
   return (
     <Container
       fluid
-      className={`d-flex flex-column flex-xl-row gap-3 ${styles.categories}`}
+      className={`d-flex gap-3 ${styles.categories}`}
       id="categories"
     >
       {Array.from({ length: gridCount }).map((_, i) => (

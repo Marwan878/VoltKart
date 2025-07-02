@@ -63,9 +63,9 @@ const dashboardOrdersSlice = createSlice({
       })
       .addCase(getOrders.fulfilled, (state, action) => {
         state.loading = false;
-        state.orders = action.payload;
+        state.orders = action.payload.data;
         state.error = null;
-        state.totalOrders = action.payload.length;
+        state.totalOrders = action.payload.count;
       })
       .addCase(getOrders.rejected, (state, action) => {
         state.loading = false;

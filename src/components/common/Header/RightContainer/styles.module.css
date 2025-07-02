@@ -4,10 +4,10 @@
   align-items: center;
 }
 
-.rightContainer > a {
+.rightContainer a {
   transition: ease color 300ms;
 }
 
-.rightContainer > a:hover {
+.rightContainer a:hover {
   color: var(--light-blue);
 }

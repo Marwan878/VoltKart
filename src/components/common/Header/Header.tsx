@@ -1,18 +1,13 @@
-import { useState } from "react";
-import BottomBar from "./BottomBar/BottomBar";
-import MiddleBar from "./MiddleBar";
+import { Logo } from "@components/ui";
+import RightContainer from "./RightContainer/RightContainer";
 
 export default function Header() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
     <header className="mb-5">
-      <MiddleBar
-        sidebarOpen={sidebarOpen}
-        onSidebarOpen={() => setSidebarOpen(true)}
-        onSidebarClose={() => setSidebarOpen(false)}
-      />
-      <BottomBar onSidebarOpen={() => setSidebarOpen(true)} />
+      <nav className="container py-2 d-flex justify-content-between align-items-center">
+        <Logo />
+        <RightContainer />
+      </nav>
     </header>
   );
 }

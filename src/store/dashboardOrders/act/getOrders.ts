@@ -1,7 +1,8 @@
 import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addToast } from "@store/toasts/toastsSlice";
-import { TOrderStatus } from "@types";
+
+import { TOrderItem, TOrderStatus } from "@types";
 
 export type GetOrdersPayload = {
   pageIndex: number;
@@ -13,11 +14,14 @@ export type GetOrdersPayload = {
 
 export const getOrders = createAsyncThunk(
   "dashboardOrders/getOrders",
-  async (payload: GetOrdersPayload, thunkAPI) => {
+  async (
+    payload: GetOrdersPayload,
+    thunkAPI
+  ): Promise<{ data: TOrderItem[]; count: number }> => {
     const { rejectWithValue, dispatch } = thunkAPI;
 
     try {
-      const query = supabase.from("orders").select("*");
+      const query = supabase.from("orders").select("*", { count: "exact" });
 
       // if orderId is provided, get the order by orderId and nothing else
       if (payload.orderId) {
@@ -25,7 +29,7 @@ export const getOrders = createAsyncThunk(
           /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
         if (!uuidRegex.test(payload.orderId)) {
-          return [];
+          return { count: 0, data: [] };
         }
 
         query.eq("id", payload.orderId);
@@ -36,21 +40,20 @@ export const getOrders = createAsyncThunk(
         if (payload.sortOrder) {
           query.order("created_at", { ascending: payload.sortOrder === "asc" });
         }
-        if (payload.pageIndex && payload.limit) {
-          query.range(
-            payload.pageIndex * payload.limit,
-            (payload.pageIndex + 1) * payload.limit
-          );
-        }
+
+        query.range(
+          payload.pageIndex * payload.limit,
+          (payload.pageIndex + 1) * payload.limit - 1
+        );
       }
 
-      const { data, error } = await query;
+      const { data, error, count } = await query;
 
       if (error) {
         throw new Error(error.message);
       }
 
-      return data;
+      return { data, count: count ?? 0 };
     } catch (error) {
       console.error(error);
       dispatch(
@@ -59,7 +62,7 @@ export const getOrders = createAsyncThunk(
           type: "danger",
         })
       );
-      return rejectWithValue(error);
+      return rejectWithValue("Error in fetching orders.");
     }
   }
 );

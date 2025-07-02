@@ -1,7 +1,7 @@
 .hero {
   background-image: url("https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/blobs-1.png");
   background-position: center 20%;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   margin-block-end: var(--section-margin);
 }
@@ -19,10 +19,6 @@
 }
 
 @media (min-width: 768px) {
-  .hero {
-    background-image: none;
-  }
-
   .productName {
     font-size: 4.375rem;
   }
@@ -31,7 +27,7 @@
     font-size: 2rem;
   }
 
-  .hero button {
+  .hero :where(button, a) {
     font-size: 1.2rem;
   }
 }
@@ -39,6 +35,7 @@
 @media (min-width: 1200px) {
   .hero {
     margin-block-end: calc(var(--section-margin) + 4rem);
+    background-image: none;
   }
 
   .hero > div {

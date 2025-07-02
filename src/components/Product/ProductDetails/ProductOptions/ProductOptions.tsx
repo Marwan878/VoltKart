@@ -36,68 +36,76 @@ export default function ProductOptions({
     );
   };
 
+  const colorOptions = product.optionCombinations
+    .map((combination) => combination.color)
+    .filter(Boolean) as TColor[];
+
+  const storageOptions = product.optionCombinations
+    .map((combination) => combination.storage)
+    .filter(Boolean) as string[];
+
+  const memoryOptions = product.optionCombinations
+    .map((combination) => combination.ram)
+    .filter(Boolean) as string[];
+
   return (
     <div>
-      <ColorOptions
-        options={
-          product.optionCombinations
-            .map((combination) => combination.color)
-            .filter(Boolean) as TColor[]
-        }
-        showQuantity={false}
-        showColorName={false}
-        optionsContainerClassName="d-flex gap-2 mb-2"
-        heading={"Colors:"}
-        onChange={(color: TColor) => {
-          setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-            newParams.set("colors", color.name);
-            return newParams;
-          });
-        }}
-      />
-      <StorageOptions
-        options={
-          product.optionCombinations
-            .map((combination) => combination.storage)
-            .filter(Boolean) as string[]
-        }
-        optionsContainerClassName="d-flex gap-2 mb-2"
-        heading={"Storage:"}
-        onChange={(storage: string) => {
-          setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-            newParams.set("storage", storage);
-            return newParams;
-          });
-        }}
-        computeOptionClassName={(storage: string) =>
-          storageOptionIsAvailable(storage)
-            ? ""
-            : "text-decoration-line-through text-muted"
-        }
-      />
-      <MemoryOptions
-        options={
-          product.optionCombinations
-            .map((combination) => combination.ram)
-            .filter(Boolean) as string[]
-        }
-        optionsContainerClassName="d-flex gap-2 mb-4"
-        heading={"Memory:"}
-        onChange={(memory: string) => {
-          setSearchParams((prev) => {
-            const newParams = new URLSearchParams(prev);
-            newParams.set("memory", memory);
-            return newParams;
-          });
-        }}
-        computeOptionClassName={(memory: string) =>
-          memoryOptionIsAvailable(memory)
-            ? ""
-            : "text-decoration-line-through text-muted"
-        }
-      />
+      {colorOptions.length > 0 && (
+        <ColorOptions
+          options={colorOptions}
+          showQuantity={false}
+          showColorName={false}
+          optionsContainerClassName="d-flex gap-2 mb-2"
+          heading={"Colors:"}
+          onChange={(color: TColor) => {
+            setSearchParams((prev) => {
+              const newParams = new URLSearchParams(prev);
+              newParams.set("colors", color.name);
+              return newParams;
+            });
+          }}
+        />
+      )}
+
+      {storageOptions.length > 0 && (
+        <StorageOptions
+          options={storageOptions}
+          optionsContainerClassName="d-flex gap-2 mb-2"
+          heading={"Storage:"}
+          onChange={(storage: string) => {
+            setSearchParams((prev) => {
+              const newParams = new URLSearchParams(prev);
+              newParams.set("storage", storage);
+              return newParams;
+            });
+          }}
+          computeOptionClassName={(storage: string) =>
+            storageOptionIsAvailable(storage)
+              ? ""
+              : "text-decoration-line-through text-muted"
+          }
+        />
+      )}
+
+      {memoryOptions.length > 0 && (
+        <MemoryOptions
+          options={memoryOptions}
+          optionsContainerClassName="d-flex gap-2 mb-4"
+          heading={"Memory:"}
+          onChange={(memory: string) => {
+            setSearchParams((prev) => {
+              const newParams = new URLSearchParams(prev);
+              newParams.set("memory", memory);
+              return newParams;
+            });
+          }}
+          computeOptionClassName={(memory: string) =>
+            memoryOptionIsAvailable(memory)
+              ? ""
+              : "text-decoration-line-through text-muted"
+          }
+        />
+      )}
     </div>
   );
 }

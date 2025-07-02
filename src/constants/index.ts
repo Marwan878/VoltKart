@@ -12,7 +12,7 @@ const HERO_IMAGES = [
   "https://codex-themes.com/thegem/sites/shop-electronics/wp-content/uploads/2022/12/blobs-1.png",
 ] as const;
 
-const CATEGORIES: { displayName: string; imageUrl: string; id: string }[] = [
+const CATEGORIES = [
   {
     displayName: "Mobiles & Accessories",
     imageUrl:

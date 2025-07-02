@@ -3,10 +3,17 @@ import MetricsCards from "@components/admin/metrics/MetricsCards";
 import TimeFilter from "@components/admin/metrics/TimeFilter";
 import { Loading } from "@components/feedback";
 import { TIME_FILTERS } from "@constants";
-import { useAppSelector } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import getMetrics from "@store/metrics/act/getMetrics";
+import { useEffect } from "react";
 
 const Main = () => {
   const { loading, error } = useAppSelector((state) => state.metrics);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMetrics("Day"));
+  }, [dispatch]);
 
   return (
     <div>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import AddToCart from "./AddToCart";
 import Wishlist from "./Wishlist";
+import QuantityCounter from "./QuantityCounter";
 
 import { TProduct } from "@types";
 
 import styles from "./style.module.css";
-import QuantityCounter from "./QuantityCounter";
 
 export default function ProductActions({
   product,
