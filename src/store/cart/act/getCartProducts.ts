@@ -19,7 +19,7 @@ const getCartProducts = createAsyncThunk(
         .from("cart_items")
         .select(
           `
-            *,
+            *,  
             product:cart_items_product_id_fkey (*)
           `
         )

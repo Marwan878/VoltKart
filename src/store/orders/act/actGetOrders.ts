@@ -1,18 +1,29 @@
 import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "@store/index";
 
 const actGetOrders = createAsyncThunk(
   "orders/actGetOrders",
   async (_, thunkAPI) => {
-    const { rejectWithValue, getState } = thunkAPI;
-    const { auth } = getState() as RootState;
+    const { rejectWithValue } = thunkAPI;
 
     try {
+      const {
+        data: { user },
+        error: authError,
+      } = await supabase.auth.getUser();
+
+      if (authError) {
+        throw new Error(authError.message);
+      }
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
       const { data, error } = await supabase
         .from("orders")
         .select("*")
-        .eq("user_id", auth.user?.id);
+        .eq("user_id", user.id);
 
       if (error) return rejectWithValue(error);
 

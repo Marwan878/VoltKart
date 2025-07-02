@@ -1,37 +1,31 @@
-import { getCartTotalQuantitySelector } from "@store/cart/cartSlice";
+import useSession from "@hooks/useSession";
 import { useAppSelector } from "@store/hooks";
 import { Heart, LogIn, ShoppingCart, User2, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import HeaderCounter from "../HeaderCounter/HeaderCounter";
 
 import styles from "./styles.module.css";
-import { useEffect, useState } from "react";
-import { supabase } from "@lib/supabase";
 
 export default function RightContainer() {
   const wishlistTotalQuantity = useAppSelector(
     (state) => state.wishlist.productIds.length
   );
-  const cartTotalQuantity = useAppSelector(getCartTotalQuantitySelector);
-  const [session, setSession] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase.auth.getUser();
+  const cartTotalQuantity = useAppSelector(
+    (state) => state.cart.cartItemsIdentifiers.length
+  );
 
-      if (error) {
-        console.error(error);
-      }
+  const { session, loading } = useSession();
 
-      setSession(!!data.user);
-    })();
-  }, []);
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className={styles.rightContainer}>
       {session ? (
         <>
-          <Link to="/account" aria-label="Your account." className="">
+          <Link to="/account" aria-label="Your account.">
             <User2 aria-hidden />
           </Link>
           <Link to="/wishlist" aria-label="Your wishlist.">

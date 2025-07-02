@@ -18,6 +18,12 @@ export default function MobileCartItemList({
           key={cartItem.sku}
           product={cartItem.product}
           sku={cartItem.sku}
+          price={
+            cartItem.product.optionCombinations.find(
+              (el) => el.sku === cartItem.sku
+            )?.price.discounted ?? 0
+          }
+          quantity={cartItem.quantity}
         />
       ))}
     </div>
@@ -27,7 +33,14 @@ export default function MobileCartItemList({
 function MobileCartItem({
   product,
   sku,
-}: Readonly<{ product: TProduct; sku: string }>) {
+  price,
+  quantity,
+}: Readonly<{
+  product: TProduct;
+  sku: string;
+  price: number;
+  quantity: number;
+}>) {
   return (
     <Product product={product}>
       <div className="d-flex flex-column align-items-start gap-3 border-bottom border-black pb-3 py-3 w-100 mb-2">
@@ -36,7 +49,12 @@ function MobileCartItem({
           <Product.ProductImage />
           <Product.ProductName className="text-black fs-6 ms-2" />
         </div>
-        <Product.QuantitySelector />
+        <div className="d-flex justify-content-between w-100">
+          <Product.QuantitySelector />
+          <span className="text-black fs-6">
+            {(price * quantity).toFixed(2)}
+          </span>
+        </div>
       </div>
     </Product>
   );

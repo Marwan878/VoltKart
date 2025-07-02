@@ -21,7 +21,7 @@ export default function BasicInformation({
   control,
   register,
   errors,
-}: BasicInformationProps) {
+}: Readonly<BasicInformationProps>) {
   const {
     fields: featuresFields,
     append: appendFeature,

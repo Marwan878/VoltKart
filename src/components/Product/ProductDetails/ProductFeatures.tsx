@@ -10,8 +10,8 @@ export default function ProductFeatures({
 }) {
   return (
     <ul className={styles.features}>
-      {product.features.map((feature) => (
-        <li key={feature} className={styles.feature}>
+      {product.features.map((feature, index) => (
+        <li key={feature + index} className={styles.feature}>
           <Check
             size={20}
             style={{ color: "var(--light-blue)", flexShrink: 0 }}

@@ -22,27 +22,22 @@ export default function AddToCart({
   stock,
 }: Readonly<AddToCartProps>) {
   const dispatch = useAppDispatch();
-  const productInCart = useAppSelector((state) =>
-    state.cart.products.find(
-      (cartProduct) =>
-        cartProduct.product_id === product.id && cartProduct.sku === sku
-    )
-  );
 
-  const productsWithSameProductIdInCart = useAppSelector((state) =>
-    state.cart.products.filter(
+  const productVariantsInCart = useAppSelector((state) =>
+    state.cart.cartItemsIdentifiers.filter(
       (cartProduct) => cartProduct.product_id === product.id
     )
   );
 
+  const thisVariantInCart = productVariantsInCart.find(
+    (cartProduct) => cartProduct.sku === sku
+  );
+
   const totalQuantityOfProductsWithSameProductIdInCart =
-    productsWithSameProductIdInCart.reduce(
-      (acc, product) => acc + product.quantity,
-      0
-    );
+    productVariantsInCart.reduce((acc, product) => acc + product.quantity, 0);
 
   const quantityToBeAddedExceedsStock =
-    (productInCart?.quantity ?? 0) + quantity > stock;
+    (thisVariantInCart?.quantity ?? 0) + quantity > stock;
 
   const quantityToBeAddedExceedsMaxOrderQuantity =
     totalQuantityOfProductsWithSameProductIdInCart + quantity >

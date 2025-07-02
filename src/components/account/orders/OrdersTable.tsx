@@ -4,6 +4,7 @@ import { Order } from "./Order";
 
 export const OrdersTable = () => {
   const orders = useAppSelector((state) => state.orders.products);
+
   return (
     <Table responsive className="table-bordered">
       <thead className="table-dark">

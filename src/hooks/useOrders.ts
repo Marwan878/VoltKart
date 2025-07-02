@@ -8,10 +8,9 @@ const useOrders = () => {
   const { loading, error } = useAppSelector((state) => state.orders);
 
   useEffect(() => {
-    const promise = dispatch(actGetOrders());
+    dispatch(actGetOrders());
 
     return () => {
-      promise.abort();
       dispatch(resetOrderStatus());
     };
   }, [dispatch]);

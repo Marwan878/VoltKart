@@ -6,6 +6,8 @@ import { Container } from "react-bootstrap";
 export default function ProductPage() {
   const { product, status, error } = useProduct();
 
+  console.log("render");
+
   return (
     <Container className="min-vh-100 mb-5">
       <Loading status={status} error={error} type="product">

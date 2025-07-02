@@ -30,9 +30,12 @@ import Orders from "@pages/Orders";
 import ProtectedAdminRoute from "@components/auth/ProtectedAdminRoute";
 import { AdminLayout } from "@layouts/index";
 
+import { rootLoader } from "./rootLoader";
+
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: rootLoader,
     element: (
       <Suspense
         fallback={

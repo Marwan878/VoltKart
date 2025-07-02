@@ -2,8 +2,10 @@ import { Heading } from "@components/common";
 import { Input } from "@components/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "@lib/supabase";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useAppDispatch } from "@store/hooks";
 import { addToast } from "@store/toasts/toastsSlice";
+import { User } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
@@ -13,20 +15,48 @@ import {
 } from "@validations/nameAndEmailSchema";
 
 const AccountDetailsForm = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const [user, setUser] = useState<User | null>(null);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    reset,
+    formState: { errors, isValid, isSubmitting, dirtyFields },
   } = useForm<nameAndEmailSchemaType>({
     resolver: zodResolver(nameAndEmailSchema),
     mode: "onBlur",
     defaultValues: {
-      firstName: user?.firstName ?? "",
-      lastName: user?.lastName ?? "",
+      firstName: user?.user_metadata.firstName ?? "",
+      lastName: user?.user_metadata.last_name ?? "",
       email: user?.email ?? "",
     },
   });
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { user },
+        error: authError,
+      } = await supabase.auth.getUser();
+
+      if (authError) {
+        throw new Error(authError.message);
+      }
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      setUser(user);
+
+      reset({
+        firstName: user.user_metadata.firstName ?? "",
+        lastName: user.user_metadata.lastName ?? "",
+        email: user.email ?? "",
+      });
+    })();
+  }, [reset]);
+
   const dispatch = useAppDispatch();
 
   const onSubmit = async (data: nameAndEmailSchemaType) => {
@@ -68,7 +98,12 @@ const AccountDetailsForm = () => {
           {...register("email")}
           error={errors.email?.message}
         />
-        <Button type="submit" disabled={!isValid || isSubmitting}>
+        <Button
+          type="submit"
+          disabled={
+            !isValid || isSubmitting || Object.keys(dirtyFields).length === 0
+          }
+        >
           {isSubmitting ? "Saving..." : "Save changes"}
         </Button>
       </Form>

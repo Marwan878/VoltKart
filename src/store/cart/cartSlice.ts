@@ -1,18 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { isString, TCartItemForState, TLoading, TProduct } from "@types";
 import getCartProducts from "./act/getCartProducts";
-import { getCartTotalQuantitySelector } from "./selectors";
 
 interface ICartState {
   products: TCartItemForState[];
   loading: TLoading;
   error: null | string;
+  cartItemsIdentifiers: {
+    product_id: string;
+    sku: string;
+    quantity: number;
+  }[];
 }
 
 const initialState: ICartState = {
   products: [],
   loading: "idle",
   error: null,
+  cartItemsIdentifiers: [],
 };
 
 interface IAddToLocalCartPayload {
@@ -51,11 +56,10 @@ const cartSlice = createSlice({
         return;
       }
 
-      state.products.push({
-        product,
+      state.cartItemsIdentifiers.push({
         product_id: product.id,
-        quantity,
         sku,
+        quantity,
       });
     },
     incrementLocalCartItemQuantity: (state, action) => {
@@ -128,6 +132,9 @@ const cartSlice = createSlice({
         (product) => product.sku !== cartItem.sku
       );
     },
+    setCartItemsIdentifiers: (state, action) => {
+      state.cartItemsIdentifiers = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCartProducts.pending, (state) => {
@@ -154,13 +161,14 @@ const cartSlice = createSlice({
   },
 });
 
-export { getCartProducts, getCartTotalQuantitySelector };
+export { getCartProducts };
 
 export const {
   addToLocalCart,
   removeLocalCartItem,
   decrementLocalCartItemQuantity,
   incrementLocalCartItemQuantity,
+  setCartItemsIdentifiers,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

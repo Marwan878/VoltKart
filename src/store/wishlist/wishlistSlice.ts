@@ -39,6 +39,9 @@ const wishlistSlice = createSlice({
     cleanWishlistProductsFullInfo: (state) => {
       state.records = [];
     },
+    setWishlistItemsIdentifiers: (state, action) => {
+      state.productIds = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(toggleWishlist.pending, (state) => {
@@ -76,6 +79,9 @@ const wishlistSlice = createSlice({
 });
 
 export { getWishlist, toggleWishlist };
-export const { cleanWishlistProductsFullInfo, toggleLocalWishlist } =
-  wishlistSlice.actions;
+export const {
+  cleanWishlistProductsFullInfo,
+  toggleLocalWishlist,
+  setWishlistItemsIdentifiers,
+} = wishlistSlice.actions;
 export default wishlistSlice.reducer;

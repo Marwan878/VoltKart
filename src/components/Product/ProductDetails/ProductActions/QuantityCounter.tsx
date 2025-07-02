@@ -19,14 +19,6 @@ export default function QuantityCounter({
   quantity,
   setQuantity,
 }: Readonly<QuantityCounterProps>) {
-  const quantityInCart = useAppSelector(
-    (state) =>
-      state.cart.products.find(
-        (cartProduct) =>
-          cartProduct.sku === sku && cartProduct.product_id === product.id
-      )?.quantity ?? 0
-  );
-
   const productsWithSameProductIdInCart = useAppSelector((state) =>
     state.cart.products.filter(
       (cartProduct) => cartProduct.product_id === product.id
@@ -38,6 +30,11 @@ export default function QuantityCounter({
       (acc, product) => acc + product.quantity,
       0
     );
+
+  const quantityInCart =
+    productsWithSameProductIdInCart.find(
+      (cartProduct) => cartProduct.sku === sku
+    )?.quantity ?? 0;
 
   const isIncrementDisabled =
     quantity + quantityInCart >= stock ||

@@ -52,7 +52,7 @@ export const addNewProduct = createAsyncThunk(
       const newProduct: TProduct = {
         id: crypto.randomUUID(),
         name: data.name,
-        categoryId: data.category,
+        categoryId: data.category as TProduct["categoryId"],
         images: {
           main: `${SUPABASE_IMAGES_URL}${mainImageName}`,
           hover: `${SUPABASE_IMAGES_URL}${hoverImageName}`,

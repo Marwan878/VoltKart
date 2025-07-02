@@ -34,19 +34,19 @@ const addToCart = createAsyncThunk(
       const { cart } = getState() as RootState;
       const { maxOrderQuantity, id: productId } = product;
 
-      const itemInCart = cart.products.find(
+      const thisVariantInCart = cart.cartItemsIdentifiers.find(
         (item) => item.product_id === productId && item.sku === sku
       );
 
-      if ((itemInCart?.quantity ?? 0) + quantity > stock)
+      if ((thisVariantInCart?.quantity ?? 0) + quantity > stock)
         throw new Error("Quantity must be less than stock.");
       if (
-        (itemInCart?.quantity ?? 0) + quantity >
+        (thisVariantInCart?.quantity ?? 0) + quantity >
         (maxOrderQuantity ?? Infinity)
       )
         throw new Error("Quantity must be less than max order quantity.");
 
-      if (itemInCart) {
+      if (thisVariantInCart) {
         dispatch(
           incrementCartItemQuantity({
             productId,

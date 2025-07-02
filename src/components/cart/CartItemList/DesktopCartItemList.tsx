@@ -64,7 +64,7 @@ function DesktopCartItem({
         <td className="position-relative">
           <Product.QuantitySelector style={{ width: "10rem" }} />
         </td>
-        <td>{price * quantity}</td>
+        <td>{(price * quantity).toFixed(2)}</td>
       </tr>
     </Product>
   );
