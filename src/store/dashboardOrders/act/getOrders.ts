@@ -2,7 +2,7 @@ import { supabase } from "@lib/supabase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addToast } from "@store/toasts/toastsSlice";
 
-import { TOrderItem, TOrderStatus } from "@types";
+import { TOrderStatus } from "@types";
 
 export type GetOrdersPayload = {
   pageIndex: number;
@@ -14,11 +14,8 @@ export type GetOrdersPayload = {
 
 export const getOrders = createAsyncThunk(
   "dashboardOrders/getOrders",
-  async (
-    payload: GetOrdersPayload,
-    thunkAPI
-  ): Promise<{ data: TOrderItem[]; count: number }> => {
-    const { rejectWithValue, dispatch } = thunkAPI;
+  async (payload: GetOrdersPayload, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
 
     try {
       const query = supabase.from("orders").select("*", { count: "exact" });
