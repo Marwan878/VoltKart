@@ -9,6 +9,7 @@ import {
   OrdersTableContainer,
 } from "@components/admin/orders";
 import useOrders from "@hooks/admin/useOrders";
+import { Container } from "react-bootstrap";
 
 const Orders = () => {
   const {
@@ -24,8 +25,9 @@ const Orders = () => {
   } = useOrders();
 
   return (
-    <>
+    <Container fluid>
       <OrdersHeader />
+
       <OrdersFilters
         search={search}
         setSearchOrderId={setSearchOrderId}
@@ -45,7 +47,7 @@ const Orders = () => {
       </OrdersTableContainer>
 
       <OrdersPagination setCurrentPage={setCurrentPage} />
-    </>
+    </Container>
   );
 };
 

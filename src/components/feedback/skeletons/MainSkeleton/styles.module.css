@@ -1,0 +1,100 @@
+/* Base skeleton styles with shimmer animation */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Metric card skeleton */
+.metricCardSkeleton {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Metric card title skeleton */
+.metricTitleSkeleton {
+  height: 1rem;
+  width: 70%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Metric card value skeleton */
+.metricValueSkeleton {
+  height: 1.5rem;
+  width: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Chart skeleton */
+.chartSkeleton {
+  height: 300px;
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.chartSkeleton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .titleSkeleton {
+    height: 2.25rem;
+    width: 350px;
+  }
+
+  .metricValueSkeleton {
+    height: 2rem;
+  }
+
+  .chartSkeleton {
+    height: 350px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .titleSkeleton {
+    height: 2.5rem;
+    width: 400px;
+  }
+
+  .metricValueSkeleton {
+    height: 2.5rem;
+  }
+
+  .chartSkeleton {
+    height: 400px;
+  }
+}

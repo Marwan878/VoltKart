@@ -49,6 +49,20 @@ export const addNewProduct = createAsyncThunk(
         return rejectWithValue(possibleError.error?.message);
       }
 
+      data.optionCombinations.forEach((option) => {
+        if (!option.color?.name) {
+          delete option.color;
+        }
+
+        if (!option.ram) {
+          delete option.ram;
+        }
+
+        if (!option.storage) {
+          delete option.storage;
+        }
+      });
+
       const newProduct: TProduct = {
         id: crypto.randomUUID(),
         name: data.name,
@@ -63,6 +77,7 @@ export const addNewProduct = createAsyncThunk(
         releaseDate: new Date().getTime(),
         features: data.features,
         maxOrderQuantity,
+        // @ts-expect-error - We are already deleting the color object if its name is not provided
         optionCombinations: data.optionCombinations.map((option) => ({
           ...option,
           sku: crypto.randomUUID(),

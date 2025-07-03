@@ -5,6 +5,7 @@ import OrdersTableSkeleton from "../skeletons/OrdersTableSkeleton/OrdersTableSke
 import ProductCardSkeleton from "../skeletons/ProductCardSkeleton/ProductCardSkeleton";
 import ProductSkeleton from "../skeletons/ProductSkeleton/ProductSkeleton";
 import ProductsSkeleton from "../skeletons/ProductsSkeleton/ProductsSkeleton";
+import MainSkeleton from "../skeletons/MainSkeleton/MainSkeleton";
 
 import { TLoading } from "@types";
 
@@ -15,6 +16,7 @@ const skeletonsTypes = {
   product: ProductSkeleton,
   ordersTable: OrdersTableSkeleton,
   products: ProductsSkeleton,
+  mainAdmin: MainSkeleton,
 };
 
 type LoadingProps = {

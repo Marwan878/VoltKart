@@ -131,6 +131,12 @@ const cartSlice = createSlice({
       state.products = state.products.filter(
         (product) => product.sku !== cartItem.sku
       );
+
+      state.cartItemsIdentifiers = state.cartItemsIdentifiers.filter(
+        (identifier) =>
+          identifier.sku !== cartItem.sku &&
+          identifier.product_id !== cartItem.product.id
+      );
     },
     setCartItemsIdentifiers: (state, action) => {
       state.cartItemsIdentifiers = action.payload;

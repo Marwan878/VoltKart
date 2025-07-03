@@ -22,7 +22,7 @@ export default function Price({ index, register, watch, errors }: PriceProps) {
         min={0}
       />
       <Input
-        label="Discount"
+        label="Discount Percentage"
         {...register(`optionCombinations.${index}.price.discountPercent`)}
         type="number"
         error={

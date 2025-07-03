@@ -9,7 +9,7 @@ export default function OrdersTableContainer({
   children,
 }: Readonly<OrdersTableProps>) {
   return (
-    <Table striped className="flex-grow-1">
+    <Table striped className="flex-grow-1" responsive>
       <thead className="table-dark">
         <tr>
           <th>Order ID</th>

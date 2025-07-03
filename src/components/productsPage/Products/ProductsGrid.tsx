@@ -9,7 +9,7 @@ export default function ProductsGrid({
   readonly products: TProduct[];
 }) {
   return (
-    <Row className="gap-4">
+    <Row style={{ rowGap: "2rem" }}>
       {products.map((product) => (
         <Col key={product.id} lg={12} md={6} xs={12}>
           <Product product={product} />

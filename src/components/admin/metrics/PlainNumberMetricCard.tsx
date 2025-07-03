@@ -10,9 +10,11 @@ export default function PlainNumberMetricCard({
   value,
 }: Readonly<PlainNumberMetricCardProps>) {
   return (
-    <div className={`${styles.metricCard}`} style={{ flexGrow: 1 }}>
+    <div
+      className={`${styles.metricCard} d-flex flex-column h-100 justify-content-between`}
+    >
       <div>{title}</div>
-      <div style={{ fontSize: "2rem", fontWeight: "bold" }}>
+      <div className={`fw-bold ${styles.metricCardValue}`}>
         {value.toLocaleString()}
       </div>
     </div>

@@ -23,7 +23,7 @@ export default function Options({
   register,
   watch,
   errors,
-}: OptionsProps) {
+}: Readonly<OptionsProps>) {
   const {
     fields: optionCombinationsFields,
     append: appendOptionCombination,
@@ -59,12 +59,20 @@ export default function Options({
               disabled={optionCombinationsFields.length === 1}
             />
           </div>
-          <Input
-            label="Option color"
-            {...register(`optionCombinations.${index}.color.hex`)}
-            type="color"
-            error={errors.optionCombinations?.[index]?.color?.hex?.message}
-          />
+          <div className="d-flex gap-4">
+            <Input
+              label="Option color"
+              {...register(`optionCombinations.${index}.color.hex`)}
+              type="color"
+              error={errors.optionCombinations?.[index]?.color?.hex?.message}
+            />
+            <Input
+              label="Option color name"
+              {...register(`optionCombinations.${index}.color.name`)}
+              type="text"
+              error={errors.optionCombinations?.[index]?.color?.name?.message}
+            />
+          </div>
           <Input
             label="Ram"
             {...register(`optionCombinations.${index}.ram`)}

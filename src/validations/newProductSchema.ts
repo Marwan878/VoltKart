@@ -42,7 +42,7 @@ const newProductSchema = z.object({
         price: z.object({
           currency: z.string().min(1, "Currency is required"),
           original: z.coerce.number().min(1, "Original price is required"),
-          discountPercent: z.coerce.number().min(1, "Discount is required"),
+          discountPercent: z.coerce.number().min(0, "Discount is required"),
         }),
         stock: z.coerce.number().min(1, "Stock is required"),
         storage: z
@@ -73,13 +73,8 @@ const newProductSchema = z.object({
           }),
         color: z
           .object({
-            name: z.string().min(1, "Color name is required"),
-            hex: z
-              .string()
-              .regex(
-                /^#([0-9a-fA-F]{6})$/,
-                "Please enter color in the format #000000, #57f832, etc."
-              ),
+            name: z.string().optional(),
+            hex: z.string(),
           })
           .optional(),
       })

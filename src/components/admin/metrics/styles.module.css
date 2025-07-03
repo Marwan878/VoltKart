@@ -20,3 +20,19 @@
   color: #4f46e5;
   font-weight: bold;
 }
+
+.metricCardValue {
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .metricCardValue {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .metricCardValue {
+    font-size: 2rem;
+  }
+}

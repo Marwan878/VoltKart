@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import RestockForm from "./RestockForm";
 import { useEffect } from "react";
 import getLowStockProducts from "@store/inventory/act/getLowStockProducts";
+import { Table } from "react-bootstrap";
 
 export default function LowStockProducts() {
   const lowStockProducts = useAppSelector(
@@ -15,7 +16,9 @@ export default function LowStockProducts() {
   return (
     <>
       <h2>Low/Out of Stock Products</h2>
-      <table
+      <Table
+        striped
+        responsive
         style={{
           width: "100%",
           background: "#fff",
@@ -44,7 +47,7 @@ export default function LowStockProducts() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </>
   );
 }
