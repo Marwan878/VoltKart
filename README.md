@@ -215,7 +215,7 @@ If you'd like to contribute:
 3. Make your changes
 4. Submit a pull request
 
-## 🙏 Acknowledgments
+## ✔️ Acknowledgments
 
 - Built as a practice project to learn modern web development
 - Thanks to the open-source community for the amazing tools and libraries
