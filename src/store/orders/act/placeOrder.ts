@@ -67,7 +67,7 @@ export const placeOrder = createAsyncThunk(
         "create-checkout-session",
         {
           body: {
-            amount: subtotal * 100,
+            amount: Math.round(subtotal * 100),
             customerId: session.user.id,
             currency: products[0].product.optionCombinations[0].price.currency,
           },
