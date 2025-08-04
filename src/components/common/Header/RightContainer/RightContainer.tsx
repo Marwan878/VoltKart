@@ -45,13 +45,13 @@ export default function RightContainer() {
         </>
       ) : (
         <div className="d-flex gap-4">
-          <Link to="/login" className="d-flex gap-2">
+          <Link to="/login" className="d-flex gap-2" aria-label="Log in.">
             <LogIn aria-hidden />
             <span className="">Log in</span>
           </Link>
-          <Link to="/register" className="d-flex gap-2">
+          <Link to="/register" className="d-flex gap-2" aria-label="Register.">
             <UserPlus aria-hidden />
-            <span className="d-none d-lg-inline">Register</span>
+            <span className="">Register</span>
           </Link>
         </div>
       )}

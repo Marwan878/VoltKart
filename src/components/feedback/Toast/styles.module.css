@@ -12,7 +12,7 @@
 .toastItem {
   position: relative;
   overflow: hidden;
-  width: 25rem;
+  width: 18.75rem;
 }
 
 .toastItem button {

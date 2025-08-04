@@ -1,5 +1,5 @@
 import { NAVIGATION_LINKS } from "@constants";
-import { useAppSelector } from "@store/hooks";
+import useSession from "@hooks/useSession";
 import { CSSProperties } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -16,16 +16,20 @@ export default function Links({
   linkStyle,
   activeClassName = "",
 }: Readonly<LinksProps>) {
-  const { user } = useAppSelector((state) => state.auth);
+  const { session, loading } = useSession();
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <ul className={containerClassName}>
       {NAVIGATION_LINKS.map((link) => {
-        if (link.visibleFor === "logged_in" && !user?.id) {
+        if (link.visibleFor === "logged_in" && !session) {
           return null;
         }
 
-        if (link.visibleFor === "logged_out" && user?.id) {
+        if (link.visibleFor === "logged_out" && session) {
           return null;
         }
 

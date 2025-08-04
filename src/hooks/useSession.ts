@@ -8,15 +8,23 @@ export default function useSession() {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const { data, error } = await supabase.auth.getUser();
+      const { data, error } = await supabase.auth.getSession();
 
       if (error) {
         console.error(error);
       }
 
-      setSession(!!data.user);
+      setSession(!!data.session);
       setLoading(false);
     })();
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
+      setSession(!!session);
+    });
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   return { session, loading };
