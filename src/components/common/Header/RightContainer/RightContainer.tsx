@@ -1,6 +1,9 @@
 import useSession from "@hooks/useSession";
-import { useAppSelector } from "@store/hooks";
+import { getCartProducts } from "@store/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { getWishlist } from "@store/wishlist/wishlistSlice";
 import { Heart, LogIn, ShoppingCart, User2, UserPlus } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import HeaderCounter from "../HeaderCounter/HeaderCounter";
 
@@ -17,6 +20,13 @@ export default function RightContainer() {
 
   const { session, loading } = useSession();
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCartProducts());
+    dispatch(getWishlist());
+  }, [dispatch]);
+
   if (loading) {
     return null;
   }
@@ -25,7 +35,7 @@ export default function RightContainer() {
     <div className={styles.rightContainer}>
       {session ? (
         <>
-          <Link to="/account" aria-label="Your account.">
+          <Link to="/account/orders" aria-label="Your account.">
             <User2 aria-hidden />
           </Link>
           <Link to="/wishlist" aria-label="Your wishlist.">
