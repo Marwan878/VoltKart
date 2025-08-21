@@ -76,9 +76,15 @@ export const placeOrder = createAsyncThunk(
             amount: Math.round(subtotal * 100),
             customerId: session.user.id,
             currency: products[0].product.optionCombinations[0].price.currency,
-            productsSkus: products.map((product) => product.sku),
-            productsIds: products.map((product) => product.product_id),
-            productsQuantities: products.map((product) => product.quantity),
+            productsSkus: JSON.stringify(
+              products.map((product) => product.sku)
+            ),
+            productsIds: JSON.stringify(
+              products.map((product) => product.product_id)
+            ),
+            productsQuantities: JSON.stringify(
+              products.map((product) => product.quantity)
+            ),
           },
         }
       );
