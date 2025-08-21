@@ -21,11 +21,14 @@ export default function RightContainer() {
   const { session, loading } = useSession();
 
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getCartProducts());
-    dispatch(getWishlist());
-  }, [dispatch]);
+    if (user) {
+      dispatch(getCartProducts());
+      dispatch(getWishlist());
+    }
+  }, [dispatch, user]);
 
   if (loading) {
     return null;
