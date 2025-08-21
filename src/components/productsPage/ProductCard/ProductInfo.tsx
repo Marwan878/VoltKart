@@ -36,7 +36,12 @@ export default function ProductInfo({ product }: Readonly<ProductInfoProps>) {
             <span className={styles.optionLabel}>Available Colors:</span>
             <div className={styles.options}>
               {colorOptions.map((color) => (
-                <ColorSwatch color={color} key={color.name} as="span" />
+                <ColorSwatch
+                  color={color}
+                  key={color.name}
+                  as="span"
+                  className="border-1 border-black"
+                />
               ))}
             </div>
           </div>

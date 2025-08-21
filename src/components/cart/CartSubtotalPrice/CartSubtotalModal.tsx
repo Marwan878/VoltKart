@@ -28,7 +28,11 @@ export default function CartSubtotalModal({
       </Modal.Header>
       <Modal.Body>
         Are you sure you want to place order with Subtotal:{" "}
-        {subtotal.toFixed(2)} {currency}
+        <span className="fw-bold fs-5">
+          {currency}
+          {subtotal.toFixed(2)}
+        </span>{" "}
+        ?
         {!loading && error && (
           <p style={{ color: "#DC3545", marginTop: "10px" }}>{error}</p>
         )}

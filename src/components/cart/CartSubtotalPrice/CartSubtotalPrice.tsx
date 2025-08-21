@@ -48,7 +48,8 @@ const CartSubtotalPrice = () => {
       <div className={styles.container}>
         <span>Subtotal:</span>
         <span>
-          {subtotal.toFixed(2)} {currency}
+          {currency}
+          {subtotal.toFixed(2)}
         </span>
       </div>
       <div className={styles.container}>

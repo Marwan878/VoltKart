@@ -46,9 +46,15 @@ export const placeOrder = createAsyncThunk(
           throw new Error("Product combination not found");
 
         if (currentCombination.stock < product.quantity) {
-          throw new Error(
-            `Not enough stock, please reduce the quantity of ${product.product.name} to ${currentCombination.stock}`
-          );
+          if (currentCombination.stock === 0) {
+            throw new Error(
+              `Sorry, ${product.product.name} is out of stock, please try again later`
+            );
+          } else {
+            throw new Error(
+              `Not enough stock, please reduce the quantity of ${product.product.name} to ${currentCombination.stock}`
+            );
+          }
         }
 
         subtotal += product.quantity * currentCombination.price.discounted;

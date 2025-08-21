@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { TProduct } from "@types";
 
 import "rc-slider/assets/index.css";
+import { useEffect, useRef, useState } from "react";
 
 type PriceFilterProps = {
   products: TProduct[];
@@ -11,6 +12,7 @@ type PriceFilterProps = {
 
 export default function PriceFilter({ products }: Readonly<PriceFilterProps>) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const discountedPrices = products.flatMap((product) =>
     product.optionCombinations.map(
@@ -18,16 +20,30 @@ export default function PriceFilter({ products }: Readonly<PriceFilterProps>) {
     )
   );
 
-  if (discountedPrices.length === 0) return null;
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const cheapestProductPrice = Math.min(...discountedPrices);
 
   const mostExpensiveProductPrice = Math.max(...discountedPrices);
 
-  const range = (searchParams.get("priceRange")?.split("-").map(Number) ?? [
-    cheapestProductPrice,
-    mostExpensiveProductPrice,
-  ]) as [number, number];
+  const [range, setRange] = useState<[number, number]>(() => {
+    const searchParamsRange = searchParams
+      .get("priceRange")
+      ?.split("-")
+      .map(Number) as [number, number];
+
+    return (
+      searchParamsRange ?? [cheapestProductPrice, mostExpensiveProductPrice]
+    );
+  });
+
+  if (discountedPrices.length === 0) return null;
 
   return (
     <>
@@ -41,10 +57,16 @@ export default function PriceFilter({ products }: Readonly<PriceFilterProps>) {
         onChange={(range) => {
           if (!Array.isArray(range)) return;
 
-          setSearchParams({
-            ...Object.fromEntries(searchParams.entries()),
-            priceRange: `${range[0]}-${range[1]}`,
-          });
+          setRange(range as [number, number]);
+
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+          timeoutRef.current = setTimeout(() => {
+            setSearchParams({
+              ...Object.fromEntries(searchParams.entries()),
+              priceRange: `${range[0]}-${range[1]}`,
+            });
+          }, 500);
         }}
         trackStyle={[{ backgroundColor: "#0d6efd", height: 6 }]}
         handleStyle={[
