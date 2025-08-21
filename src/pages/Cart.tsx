@@ -3,11 +3,13 @@ import { CartItemList, CartSubtotalPrice } from "@components/cart/index";
 import { Loading, LottieHandler } from "@components/feedback";
 import useCart from "@hooks/useCart";
 import { Container } from "react-bootstrap";
+import { useSearchParams } from "react-router-dom";
 
 const Cart = () => {
-  const { loading, error, products, placeOrderStatus } = useCart();
+  const { loading, error, products } = useCart();
+  const [searchParams] = useSearchParams();
 
-  if (placeOrderStatus === "succeeded") {
+  if (searchParams.get("payment_status") === "success") {
     return (
       <LottieHandler
         message="Your order has been placed successfully"

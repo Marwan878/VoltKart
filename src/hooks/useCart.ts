@@ -7,7 +7,6 @@ const useCart = () => {
   const dispatch = useAppDispatch();
 
   const { products, loading, error } = useAppSelector((state) => state.cart);
-  const placeOrderStatus = useAppSelector((state) => state.orders.loading);
 
   useEffect(() => {
     dispatch(getCartProducts());
@@ -21,7 +20,6 @@ const useCart = () => {
     loading,
     error,
     products,
-    placeOrderStatus,
   };
 };
 
